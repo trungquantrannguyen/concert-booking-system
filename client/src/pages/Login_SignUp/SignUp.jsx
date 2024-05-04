@@ -24,6 +24,12 @@ function SignUp() {
 
   async function submit(e){
     e.preventDefault();
+    console.log(user)
+    console.log(email)
+    console.log(password)
+    console.log(phone)
+    console.log(gender)
+    console.log(dob)
 
     try{
       await axios.post("http://localhost:5173/signup",{
@@ -65,11 +71,11 @@ function SignUp() {
         </div>
         <div className='input'>
           <img src={phone_icon} alt=""/>
-          <input type='tel' onChange={(e)=>{setPhone(e.target.value)}} placeholder="Phone number"/>
+          <input type='text' onChange={(e)=>{setPhone(e.target.value)}} placeholder="Phone number"/>
         </div>
         <div className='input'>
           <img src={gender_icon} alt=""/>
-          <select name='gender' onSelect={(e)=>{setGender(e.target.value)}} placeholder="Gender">
+          <select name='gender' onClick={(e)=>{setGender(e.target.value)}} placeholder="Gender">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
