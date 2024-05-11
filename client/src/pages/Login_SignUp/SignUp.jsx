@@ -12,33 +12,28 @@ import gender_icon from './assets/gender.png'
 
 function SignUp() {
 
-  const history = useNavigate()
+  const navigate = useNavigate()
 
-  const [user, setUser] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [phone, setPhone] = useState('')
-  const [gender, setGender] = useState('')
-  const [dob, setDoB] = useState('')
+  const [username, setUser] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const [phoneNumber, setPhoneNumber] = useState()
+  const [gender, setGender] = useState()
+  const [dob, setDoB] = useState()
 
 
   async function submit(e){
     e.preventDefault();
-    console.log(user)
-    console.log(email)
-    console.log(password)
-    console.log(phone)
-    console.log(gender)
-    console.log(dob)
 
     try{
-      await axios.post("http://localhost:5173/signup",{
-        email,password,phone,gender,dob
+      await axios.post('http://localhost:3000/api/user/signup',{
+        username,email,password,phoneNumber,gender,dob
       })
       .then(res=>{
-          if (res.data == 'User created successfully'){
-            history('/home',{state:{id:email}})
-          }
+        console.log(res)
+        if (res.status === 201 || res.data === "User created successfully"){
+          navigate('/login')
+        }
       })
       .catch(e=>{
           alert('Wrong inputs!')
@@ -71,7 +66,7 @@ function SignUp() {
         </div>
         <div className='input'>
           <img src={phone_icon} alt=""/>
-          <input type='text' onChange={(e)=>{setPhone(e.target.value)}} placeholder="Phone number"/>
+          <input type='text' onChange={(e)=>{setPhoneNumber(e.target.value)}} placeholder="Phone number"/>
         </div>
         <div className='input'>
           <img src={gender_icon} alt=""/>

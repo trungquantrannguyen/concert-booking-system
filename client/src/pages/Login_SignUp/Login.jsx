@@ -3,32 +3,33 @@ import './Login.css'
 import axios from "axios"
 import { useNavigate, Link } from 'react-router-dom'
 
-import email_icon from './assets/email.png'
+import user_icon from './assets/user.png'
 import password_icon from './assets/password.png'
 
 function Login() {
 
-  const history = useNavigate()
+  const navigate = useNavigate()
 
-  const [email, setEmail] = useState('')
+  const [username, setUser] = useState()
   const [password, setPassword] = useState('')
 
   async function submit(e){
     e.preventDefault();
 
     try{
-      await axios.post("http://localhost:5173/login",{
-        email,password
+      await axios.post("http://localhost:3000/api/user/signin",{
+        username,password
       })
       .then(res=>{
-          if (res.data == 'User not found!'){
+          console.log(res)
+          if (res.status === 404 || res.data === 'User not found!'){
             alert('User not found!')
           }
-          else if (res.data == 'Incorrect user or password'){
+          else if (res.status === 401 || res.data === 'Incorrect user or password'){
             alert('Incorrect user or password')
         }
           else{
-            history('/home',{state:{id:email}})
+            navigate('/concerts')
           }
       })
       .catch(e=>{
@@ -49,8 +50,8 @@ function Login() {
       </div>
       <form className='inputs' action='POST'>
         <div className='input'>
-          <img src={email_icon} alt=""/>
-          <input type="email" onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email address"/>
+          <img src={user_icon} alt=""/>
+          <input type="text" onChange={(e)=>{setUser(e.target.value)}} placeholder="User name"/>
         </div>
         <div className='input'>
           <img src={password_icon} alt=""/>
