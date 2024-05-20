@@ -3,8 +3,8 @@ import './Login.css'
 import axios from "axios"
 import { useNavigate, Link } from 'react-router-dom'
 
-import user_icon from './assets/user.png'
-import password_icon from './assets/password.png'
+import user_icon from '../../assets/user.png'
+import password_icon from '../../assets/password.png'
 
 function Login() {
 
