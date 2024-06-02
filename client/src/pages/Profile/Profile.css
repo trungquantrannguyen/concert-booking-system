@@ -1,0 +1,32 @@
+#profile-container{
+    align-content: center;
+    text-align: center;
+    margin-top: 100px;
+    width: 80%;
+    height: auto;
+}
+.card-img-top{
+    width: 200px;
+    height:
+     200px;
+}
+.list-group{
+    text-align: left;
+    font-size: 18px;
+    font-weight: 400px;
+}
+.card-body h5{
+    margin: 20px 0px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 20px 400px;
+}

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import './Login.css'
+import '../Login/Login.css'
 import axios from "axios"
 import { useNavigate, Link } from 'react-router-dom'
 
-import user_icon from './assets/user.png'
-import email_icon from './assets/email.png'
-import password_icon from './assets/password.png'
-import date_icon from './assets/date.png'
-import phone_icon from './assets/phone.png'
-import gender_icon from './assets/gender.png'
+import user_icon from '../../assets/user.png'
+import email_icon from '../../assets/email.png'
+import password_icon from '../../assets/password.png'
+import date_icon from '../../assets/date.png'
+import phone_icon from '../../assets/phone.png'
+import gender_icon from '../../assets/gender.png'
 
 function SignUp() {
 
