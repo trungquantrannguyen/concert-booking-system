@@ -1,28 +1,42 @@
 import React, { useState } from "react"
 import './Navbar.css'
-import { Link } from "react-router-dom"
-
-import logo from '../assets/logo.png'
+import {useNavigate } from "react-router-dom"
 
 function Navbar(){
-
-    const [menu, setMenu] = useState("concerts");
+    const navigate = useNavigate()
 
     return(
-        <div className="navbar">   
-            <div className="nav-logo">
-                <img src={logo} alt="ConcertBox" />
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    ConcertBox
+                </a>
+                <button 
+                    class="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNavAltMarkup" 
+                    aria-controls="navbarNavAltMarkup" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" aria-current="page" href="/concerts">
+                            Concerts
+                        </a>
+                        <a class="nav-link" href="/artists">
+                            Artists
+                        </a>
+                        <a class="nav-link" href="/login">
+                            Login
+                        </a>
+                    </div>
+                </div>
             </div>
-            <ul className="nav-menu">
-                <li onClick={() => setMenu("home")}><Link style={{textDecoration: 'none', color: 'black'}} to="/home">Home</Link>{menu==="home"?<h/>:<></>}</li>
-                <li onClick={() => setMenu("concerts")}><Link style={{textDecoration: 'none', color: 'black'}} to="/concerts">Concerts</Link>{menu==="concerts"?<h/>:<></>}</li>
-                <li onClick={() => setMenu("artists")}><Link style={{textDecoration: 'none', color: 'black'}} to="/artists">Artists</Link>{menu==="artists"?<h/>:<></>}</li>
-            </ul>
-            <div className="nav-login">
-                <Link to="/login"><button>Login</button></Link>
-                <Link to="/signup"><button>Sign Up</button></Link>
-            </div>
-        </div>
+        </nav>
     );
 }
 
