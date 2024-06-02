@@ -1,11 +1,13 @@
 import express from "express";
 import { PORT } from "./config.js";
-import userRouter from "./routes/user.route.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import userRouter from "./routes/user.route.js";
+import bookingRouter from "./routes/booking.route.js";
+import concertRouter from "./routes/concert.route.js";
 dotenv.config();
 
 mongoose
@@ -22,7 +24,10 @@ const app = express();
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+
 app.use("/api/user", userRouter);
+app.use("/api/booking", bookingRouter);
+app.use("/api/concert", concertRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
