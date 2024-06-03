@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const concertSchema = new mongoose.Schema(
   {
     artist: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
     date: {
