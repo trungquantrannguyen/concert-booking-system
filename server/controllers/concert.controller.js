@@ -9,8 +9,8 @@ export const getAllConcerts = async (req, res, next) => {
     const sort = req.query.sort || "time";
     const order = req.query.order || "desc";
 
-    concerts = await Concert.find({
-      name: { $regex: searchTerm, $option: "i" },
+    const concerts = await Concert.find({
+      name: { $regex: searchTerm, $options: "i" },
     })
       .sort({ [sort]: order })
       .limit(limit)
@@ -23,6 +23,13 @@ export const getAllConcerts = async (req, res, next) => {
 };
 
 export const createConcert = async (req, res, next) => {
+  if (
+    req.params.id != process.env.ADMIN1ID &&
+    req.params.id != process.env.ADMIN2ID
+  ) {
+    return next(errorHandler(403, "Forbidden admin"));
+  }
+  const date = new Date(req.body.date);
   try {
     const concert = await Concert.create(req.body);
     res.status(201).json({
@@ -35,13 +42,19 @@ export const createConcert = async (req, res, next) => {
 };
 
 export const deleteConcert = async (req, res, next) => {
-  const concert = await Concert.findById(req.params.id);
+  if (
+    req.params.id != process.env.ADMIN1ID &&
+    req.params.id != process.env.ADMIN2ID
+  ) {
+    return next(errorHandler(403, "Forbidden admin"));
+  }
+  const concert = await Concert.findById(req.params.concertID);
 
   if (!concert) {
     return next(errorHandler(404, "Concert not found"));
   }
   try {
-    await Concert.findByIdAndDelete(req.params.id);
+    await Concert.findByIdAndDelete(req.params.concertID);
     res.status(200).json("Concert has been deleted");
   } catch (error) {
     next(error);
@@ -49,13 +62,20 @@ export const deleteConcert = async (req, res, next) => {
 };
 
 export const updateConcert = async (req, res, next) => {
-  const concert = await Concert.findById(req.params.id);
-
+  const concert = await Concert.findById(req.params.concertID);
+  if (
+    req.params.id != process.env.ADMIN1ID &&
+    req.params.id != process.env.ADMIN2ID
+  ) {
+    return next(errorHandler(403, "Forbidden admin"));
+  }
   if (!concert) {
     return next(errorHandler(404, "Concert not found"));
   }
   try {
-    await Concert.findByIdAndUpdate(req.params.id, res.body, { new: true });
+    await Concert.findByIdAndUpdate(req.params.concertID, req.body, {
+      new: true,
+    });
     res.status(200).json("Concert has been updated");
   } catch (error) {
     next(error);

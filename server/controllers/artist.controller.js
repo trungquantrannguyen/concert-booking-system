@@ -26,7 +26,7 @@ export const selectArtist = async (req, res, next) => {
   try {
     const artist = await Artist.findById(req.params.artistID);
     if (!artist) {
-      return next(errorHandler(404, "Concert not found"));
+      return next(errorHandler(404, "Artist not found"));
     }
     res.status(200).json(artist);
   } catch (error) {
