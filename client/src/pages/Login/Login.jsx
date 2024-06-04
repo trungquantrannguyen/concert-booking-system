@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import './Login.css'
 import axios from "axios"
-import { useNavigate, Link } from 'react-router-dom'
-
-import user_icon from '../../assets/user.png'
-import password_icon from '../../assets/password.png'
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 function Login() {
 
@@ -13,31 +11,37 @@ function Login() {
   const [username, setUser] = useState()
   const [password, setPassword] = useState('')
 
-  async function submit(e){
+  async function submit(e) {
     e.preventDefault();
 
-    try{
-      await axios.post("http://localhost:3000/api/user/signin",{
-        username,password
+    try {
+      await axios.post("http://localhost:3000/api/user/signin", {
+        username, password
       })
-      .then(res=>{
+        .then(res => {
           console.log(res)
-          if (res.status === 404 || res.data === 'User not found!'){
+          if (res.status === 404 || res.data === 'User not found!') {
             alert('User not found!')
           }
-          else if (res.status === 401 || res.data === 'Incorrect user or password'){
+          else if (res.status === 401 || res.data === 'Incorrect user or password') {
             alert('Incorrect user or password')
-        }
-          else{
-            navigate('/concerts')
           }
-      })
-      .catch(e=>{
+          else if (res.status === 200) {
+            const token = Cookies.get('access_token');
+            if (token) {
+              localStorage.setItem("token", token);
+              navigate('/concerts')
+            } else {
+              alert('Login failed! No token received.');
+            }
+          }
+        })
+        .catch(e => {
           alert('Wrong inputs!')
           console.log(e)
-      })
+        })
     }
-    catch(e){
+    catch (e) {
       console.log(e)
     }
   }
@@ -50,17 +54,22 @@ function Login() {
       </div>
       <form className='inputs' action='POST'>
         <div className='input'>
-          <img src={user_icon} alt=""/>
-          <input type="text" onChange={(e)=>{setUser(e.target.value)}} placeholder="User name"/>
+          <span className='label-value'>Username</span>
+          <div className='input-value'>
+            <input type="text" onChange={(e) => { setUser(e.target.value) }} placeholder="" />
+          </div>
         </div>
         <div className='input'>
-          <img src={password_icon} alt=""/>
-          <input type='password' onChange={(e)=>{setPassword(e.target.value)}} placeholder="Password"/>
+          <span className='label-value'>Password</span>
+          <div className='input-value'>
+            <input type='password' onChange={(e) => { setPassword(e.target.value) }} placeholder="" />
+          </div>
         </div>
-        <div className='forgot-password'>Lost Password? <span> Click Here!</span></div>
-        <div className='submit-container'>
-          <input type='submit' className='submit' onClick={submit} value='Login'/>
-          <Link to="/signup" style={{textDecoration: 'none'}}><input type='submit' className='submit' value='Sign Up'/></Link>
+        <p className="forgot-password text-right mt-2">
+          Forgot <a href="#" style={{ textDecoration: 'none', color: 'white' }}> password</a>?
+        </p>
+        <div className="d-grid gap-2 mt-3">
+          <input className="btn btn-primary" type='submit' onClick={submit} value='login' />
         </div>
       </form>
     </div>

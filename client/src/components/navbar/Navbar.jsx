@@ -1,38 +1,41 @@
 import React, { useState } from "react"
 import './Navbar.css'
-import {useNavigate } from "react-router-dom"
+import { useNavigate, NavLink } from "react-router-dom"
 
-function Navbar(){
+function Navbar() {
     const navigate = useNavigate()
 
-    return(
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    ConcertBox
+    return (
+        <nav className="navbar navbar-expand-lg fixed-top">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">
+                    ConcertLand
                 </a>
-                <button 
-                    class="navbar-toggler" 
-                    type="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#navbarNavAltMarkup" 
-                    aria-controls="navbarNavAltMarkup" 
-                    aria-expanded="false" 
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    <span class="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link" aria-current="page" href="/concerts">
-                            Concerts
-                        </a>
-                        <a class="nav-link" href="/artists">
-                            Artists
-                        </a>
-                        <a class="nav-link" href="/login">
-                            Login
-                        </a>
+                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div className="navbar-nav">
+                            <div className="nav-item">
+                                <NavLink className="nav-link" to="/concerts">concerts</NavLink>
+                            </div>
+                            <div className="nav-item">
+                                <NavLink className="nav-link" to="/artists">artists</NavLink>
+                            </div>
+                            <div className="nav-item">
+                                <NavLink className="nav-link" to="/login">login</NavLink>
+                            </div>
+                            <div className="nav-item">
+                                <NavLink className="nav-link" to="/signup">signup</NavLink>
+                            </div>
                     </div>
                 </div>
             </div>
