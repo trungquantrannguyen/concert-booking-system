@@ -20,7 +20,6 @@ const bookingSchema = new mongoose.Schema(
     },
     receipt: {
       type: String,
-      require: true,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
