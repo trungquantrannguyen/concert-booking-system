@@ -14,6 +14,6 @@ router.get("/", getAllArtist);
 router.get("/:id", selectArtist);
 router.post("/:id", verifyToken, createArtist);
 router.delete("/:id/:artistID", verifyToken, deleteArtist);
-router.put("/:artistID", verifyToken, updateArtist);
+router.put("/:id/:artistID", verifyToken, updateArtist);
 
 export default router;

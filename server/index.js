@@ -33,10 +33,10 @@ app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/booking", bookingRouter);
 app.use("/api/concert", concertRouter);
-app.use("api/review", reviewRouter);
-app.use("api/artist", artistRouter);
-app.use("api/venue", venueRouter);
-app.use("api/ticket", ticketRouter);
+app.use("/api/review", reviewRouter);
+app.use("/api/artist", artistRouter);
+app.use("/api/venue", venueRouter);
+app.use("/api/ticket", ticketRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

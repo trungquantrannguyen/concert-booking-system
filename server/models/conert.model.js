@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const concertSchema = new mongoose.Schema(
   {
+    name: {
+      type: String,
+      require: true,
+    },
     artist: {
       type: mongoose.Schema.Types.ObjectId,
       require: true,
