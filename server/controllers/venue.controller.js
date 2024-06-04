@@ -1,4 +1,5 @@
 import Venue from "../models/venue.model.js";
+import { errorHandler } from "../utils/errorHandler.js";
 
 export const getAllVenues = async (req, res, next) => {
   try {
@@ -40,7 +41,7 @@ export const createVenue = async (req, res, next) => {
 };
 
 export const deleteVenue = async (req, res, next) => {
-  const venue = await Venue.findById(req.params.VenueID);
+  const venue = await Venue.findById(req.params.venueID);
 
   if (!venue) {
     return next(errorHandler(404, "Venue not found"));
@@ -54,7 +55,7 @@ export const deleteVenue = async (req, res, next) => {
 };
 
 export const updateVenue = async (req, res, next) => {
-  const venue = await Venue.findById(req.params.VenueID);
+  const venue = await Venue.findById(req.params.venueID);
   if (
     req.params.id != process.env.ADMIN1ID &&
     req.params.id != process.env.ADMIN2ID
@@ -80,7 +81,7 @@ export const updateVenue = async (req, res, next) => {
 
 export const selectVenue = async (req, res, next) => {
   try {
-    const venue = await Venue.findById(req.params.VenueID);
+    const venue = await Venue.findById(req.params.venueID);
     if (!venue) {
       return next(errorHandler(404, "Venue not found"));
     }
