@@ -1,6 +1,6 @@
 import React from 'react'
-import {concert_list} from '../../assets/assets'
-import { genres_list } from '../../assets/assets';
+import {  concert_list } from '../../assets/assets'
+import { genres_list } from '../../assets/assets'
 import './FeaturedEvents.css'
 
 function FeaturedEvents(){
