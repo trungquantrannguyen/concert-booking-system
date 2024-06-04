@@ -24,7 +24,7 @@ export const getAllArtist = async (req, res, next) => {
 
 export const selectArtist = async (req, res, next) => {
   try {
-    const artist = await Artist.findById(req.params.id);
+    const artist = await Artist.findById(req.params.artistID);
     if (!artist) {
       return next(errorHandler(404, "Concert not found"));
     }
