@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Login.css'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie';
+import { StoreContext } from '../../context/StoreContext'
 
 function Login() {
 
   const navigate = useNavigate()
 
-  const [username, setUser] = useState()
+  const { setToken, setUsername } = useContext(StoreContext)
+  const [username, setUser] = useState('')
   const [password, setPassword] = useState('')
 
   async function submit(e) {
@@ -27,13 +28,10 @@ function Login() {
             alert('Incorrect user or password')
           }
           else if (res.status === 200) {
-            const token = Cookies.get('access_token');
-            if (token) {
-              localStorage.setItem("token", token);
-              navigate('/concerts')
-            } else {
-              alert('Login failed! No token received.');
-            }
+            setToken(res.data.token)
+            setUsername(res.data.rest.username)
+            localStorage.setItem("token", res.data.token);
+            navigate('/concerts')
           }
         })
         .catch(e => {

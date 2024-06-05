@@ -17,20 +17,20 @@ function Profile(){
     return(
     <>
         <Navbar/>
-        <div class="container-fluid" id="profile-container">
+        <div className="container-fluid" id="profile-container">
             <img src={user} class="card-img-top"/>
-            <div class="card-body">
-                <h5 class="card-title">{username}'s Profile</h5>
+            <div className="card-body">
+                <h5 className="card-title">{username}'s Profile</h5>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Name: {username} </li>
-                <li class="list-group-item">Email: {email}</li>
-                <li class="list-group-item">Phone Number: {phone}</li>
-                <li class="list-group-item">Gender: {phone}</li>
-                <li class="list-group-item">Date of birth: {dob}</li>
+            <ul className="list-group list-group-flush">
+                <li className="list-group-item">Name: {username} </li>
+                <li className="list-group-item">Email: {email}</li>
+                <li className="list-group-item">Phone Number: {phone}</li>
+                <li className="list-group-item">Gender: {phone}</li>
+                <li className="list-group-item">Date of birth: {dob}</li>
             </ul>
-            <div class="card-body">
-                <button class="btn">Update</button>
+            <div className="card-body">
+                <button className="btn">Update</button>
             </div>
   </div>
     </>
