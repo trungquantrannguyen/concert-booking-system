@@ -17,10 +17,8 @@ export const getTicketsfromBooking = async (req, res, next) => {
   }
 };
 
-export const createTicket = async (ticketClass, bookingID) => {
-  const venue = await Venue.findById(
-    Concert.findById(Booking.findById(bookingID)._id)._id
-  );
+export const createTicket = async (ticketClass, concertID) => {
+  const venue = await Venue.findById(Concert.findById(concertID).venue);
   console.log(venue.seatClass);
   console.log(venue.priceRange);
 

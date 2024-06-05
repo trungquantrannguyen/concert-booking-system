@@ -18,9 +18,6 @@ const bookingSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    receipt: {
-      type: String,
-    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -29,9 +29,11 @@ export const createConcert = async (req, res, next) => {
   ) {
     return next(errorHandler(403, "Forbidden admin"));
   }
-  const date = new Date(req.body.date);
+  const { name, artist, date, time, venue } = req.body;
+  const formatDate = new Date(date);
+  const newConcert = { name, artist, formatDate, time, venue };
   try {
-    const concert = await Concert.create(req.body);
+    const concert = await Concert.create(newConcert);
     res.status(201).json({
       message: "Created successfully",
       concert,

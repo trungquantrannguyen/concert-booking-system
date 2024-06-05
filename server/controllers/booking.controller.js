@@ -30,19 +30,19 @@ export const selectBooking = async (req, res, next) => {
   }
 };
 
-// export const confirmBooking = async (req,res,next) => {
-//     try{
-//          const session =  await stripe.checkout.sessions.create({
-//             payment_method_types: ["card"],
-//             mode: "payment",
-//             success_url: "",
-//             cancel_url:
-//          })
-//          res.status(200).json({url: session.url})
-//     } catch(error) {
-//         next(error)
-//     }
-// }
+export const confirmBooking = async (req, res, next) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      success_url: `${process.env.CLIENT_URL}/confirmbooking`,
+      cancel_url: `${process.env.CLIENT_URL}/cart`,
+    });
+    res.status(200).json({ url: session.url });
+  } catch (error) {
+    next(error);
+  }
+};
 
 // export const createBooking = async (req, res, next) => {
 //   let paymentStatus = "incomplete";
