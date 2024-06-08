@@ -18,21 +18,28 @@ export const getTicketsfromBooking = async (req, res, next) => {
 };
 
 export const createTicket = async (ticketClass, concertID) => {
-  const venue = await Venue.findById(Concert.findById(concertID).venue);
-  console.log(venue.seatClass);
-  console.log(venue.priceRange);
+  const concert = await Concert.findById(concertID);
+  // console.log(concert.venue);
 
-  venue.seatClass.forEach(async (seat, capacity) => {
+  const venue = await Venue.findById(concert.venue);
+  // console.log(venue.seatClass);
+  // console.log(venue.priceRange);
+  let ticket;
+  for (const [seat, capacity] of venue.seatClass.entries()) {
+    // console.log(seat);
+    // console.log(capacity);
     if (ticketClass == seat) {
       const remaining = capacity;
       const seatNumber = capacity - remaining;
-      const price = venue.priceRange[seat];
-      const ticket = await Ticket.create({
+      const price = venue.priceRange.get(seat);
+      console.log({ seatNumber, price, seat });
+      ticket = await Ticket.create({
         ticketClass: seat,
         seatNumber: seatNumber,
         price: price,
       });
-      return ticket;
+      // console.log(ticket);
     }
-  });
+  }
+  return ticket;
 };
