@@ -55,6 +55,34 @@ export const SignIn = async (req, res, next) => {
   }
 };
 
+export const updateUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, "You can only update your own account!"));
+  try {
+    if (req.body.password) {
+      req.body.password = bcryptjs.hashSync(req.body.password, 10);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          email: req.body.email,
+          password: req.body.password,
+          phoneNumber: req.body.phoneNumber,
+        },
+      },
+      { new: true }
+    );
+
+    const { password, ...rest } = updatedUser._doc;
+
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const SignOut = async (req, res, next) => {
   try {
     res.clearCookie("access_token");

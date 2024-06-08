@@ -75,10 +75,14 @@ export const updateConcert = async (req, res, next) => {
     return next(errorHandler(404, "Concert not found"));
   }
   try {
-    await Concert.findByIdAndUpdate(req.params.concertID, req.body, {
-      new: true,
-    });
-    res.status(200).json("Concert has been updated");
+    const newConcert = await Concert.findByIdAndUpdate(
+      req.params.concertID,
+      req.body,
+      {
+        new: true,
+      }
+    );
+    res.status(200).json({ message: "Concert has been updated", newConcert });
   } catch (error) {
     next(error);
   }
