@@ -12,7 +12,7 @@ function Search(){
                     placeholder="Search" 
                     aria-label="Search"
                 />
-                <button class="btn" type="submit">Search</button>
+                <button class="btn-search" type="submit">Search</button>
             </form>
         </div>
     );

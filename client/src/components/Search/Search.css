@@ -16,13 +16,13 @@
 .form-control{
     width: 50%;   
 }
-.btn{
+.btn-search{
     background-color: #dd5a3e;
     border-color: #dd5a3e;
     border-radius: 10px;
     color: #fff;
 }
-.btn:hover{
+.btn-search:hover{
     background-color: #dd5a3e;
     border-color: #dd5a3e;
     border-radius: 10px;
