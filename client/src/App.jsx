@@ -6,6 +6,8 @@ import SignUp from './pages/SignUp/SignUp';
 import Login from "./pages/Login/Login";
 import Profile from './pages/Profile/Profile';
 import DashBoard from './pages/DashBoard/DashBoard';
+import Cart from './pages/Cart/Cart';
+import ConfirmBooking from './pages/ConfirmBooking/ConfirmBooking';
 
 function App() {
   return(
@@ -19,6 +21,8 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/dashboard" element={<DashBoard/>}/>
+      <Route path="/cart" element={<Cart/>}/>
+      <Route path="/confirmbooking" element={<ConfirmBooking/>}/>
     </Routes>
     </Router>
     </>

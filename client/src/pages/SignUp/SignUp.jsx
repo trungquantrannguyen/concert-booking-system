@@ -3,13 +3,6 @@ import '../Login/Login.css'
 import axios from "axios"
 import { useNavigate, Link } from 'react-router-dom'
 
-import user_icon from '../../assets/user.png'
-import email_icon from '../../assets/email.png'
-import password_icon from '../../assets/password.png'
-import date_icon from '../../assets/date.png'
-import phone_icon from '../../assets/phone.png'
-import gender_icon from '../../assets/gender.png'
-
 function SignUp() {
 
   const navigate = useNavigate()
@@ -22,25 +15,25 @@ function SignUp() {
   const [dob, setDoB] = useState()
 
 
-  async function submit(e){
+  async function submit(e) {
     e.preventDefault();
 
-    try{
-      await axios.post('http://localhost:3000/api/user/signup',{
-        username,email,password,phoneNumber,gender,dob
+    try {
+      await axios.post('http://localhost:3000/api/user/signup', {
+        username, email, password, phoneNumber, gender, dob
       })
-      .then(res=>{
-        console.log(res)
-        if (res.status === 201 || res.data === "User created successfully"){
-          navigate('/login')
-        }
-      })
-      .catch(e=>{
+        .then(res => {
+          console.log(res)
+          if (res.status === 201 || res.data === "User created successfully") {
+            navigate('/login')
+          }
+        })
+        .catch(e => {
           alert('Wrong inputs!')
           console.log(e)
-      })
+        })
     }
-    catch(e){
+    catch (e) {
       console.log(e)
     }
   }
@@ -52,35 +45,47 @@ function SignUp() {
         <div className='underline'></div>
       </div>
       <form className='inputs' action='POST'>
-      <div className='input'>
-        <img src={user_icon} alt=""/>
-          <input type="text" onChange={(e)=>{setUser(e.target.value)}} placeholder="User name"/>
+        <div className='input'>
+          <span className='label-value'>Username</span>
+          <div className='input-value'>
+            <input type="text" onChange={(e) => { setUser(e.target.value) }} placeholder="" />
+          </div>
         </div>
         <div className='input'>
-        <img src={email_icon} alt=""/>
-          <input type="email" onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email address"/>
+          <span className='label-value'>Email</span>
+          <div className='input-value'>
+            <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="" />
+          </div>
         </div>
         <div className='input'>
-          <img src={password_icon} alt=""/>
-          <input type='password' onChange={(e)=>{setPassword(e.target.value)}} placeholder="Password"/>
+          <span className='label-value'>Password</span>
+          <div className='input-value'>
+            <input type='password' onChange={(e) => { setPassword(e.target.value) }} placeholder="" />
+          </div>
         </div>
         <div className='input'>
-          <img src={phone_icon} alt=""/>
-          <input type='text' onChange={(e)=>{setPhoneNumber(e.target.value)}} placeholder="Phone number"/>
+          <span className='label-value'>Phone Number</span>
+          <div className='input-value'>
+            <input type='text' onChange={(e) => { setPhoneNumber(e.target.value) }} placeholder="" />
+          </div>
         </div>
         <div className='input'>
-          <img src={gender_icon} alt=""/>
-          <select name='gender' onClick={(e)=>{setGender(e.target.value)}} placeholder="Gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          <span className='label-value'>Gender</span>
+          <div className='input-value'>
+            <select name='gender' onClick={(e) => { setGender(e.target.value) }} placeholder="">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
         </div>
         <div className='input'>
-          <img src={date_icon} alt=""/>
-          <input type='date' onChange={(e)=>{setDoB(e.target.value)}} placeholder="Date of birth"/>
+        <span className='label-value'>Date of Birth</span>
+        <div className='input-value'>
+          <input type='date' onChange={(e) => { setDoB(e.target.value) }} placeholder="" />
+          </div>
         </div>
-        <div className='submit-container'>
-        <input type='submit' className='submit' onClick={submit} value='Sign Up'/>
+        <div className="d-grid gap-2 mt-3">
+          <input className="btn btn-primary" type='submit' onClick={submit} value='signup' />
         </div>
       </form>
     </div>

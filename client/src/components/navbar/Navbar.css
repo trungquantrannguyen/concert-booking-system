@@ -1,19 +1,27 @@
 .navbar{
     display: flex;
-    background-color: #fff;
-    box-shadow: 0 1px 0 0 #dd5a3e;
 }
-.navbar-brand a{
-    font-size: 30px;
-    font-weight: 600;
+.navbar-brand {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+}
+.navbar-brand:hover {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
 }
 .navbar-nav a{
     font-size: 18px;
     font-weight: 300;
-    color: #000;
+    color: #fff;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
+    color: #5454B8;
+    font-weight: 600;
 }
 .navbar-nav a:hover{
-    color: #dd5a3e;
+    color: #5454B8;
     font-weight: 400;
     cursor: pointer;
 }
