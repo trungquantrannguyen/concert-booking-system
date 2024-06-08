@@ -1,4 +1,4 @@
-import Concert from "../models/conert.model.js";
+import Concert from "../models/concert.model.js";
 import { errorHandler } from "../utils/errorHandler.js";
 
 export const getAllConcerts = async (req, res, next) => {

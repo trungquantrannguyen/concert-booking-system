@@ -14,10 +14,6 @@ export const SignUp = async (req, res, next) => {
     const { username, password, email, phoneNumber, gender, dob } = req.body;
     const hashedPassword = bcryptjs.hashSync(password, 10);
     const dobParsed = new Date(dob);
-    let role;
-    if (email == process.env.ADMIN1 || email == process.env.ADMIN2) {
-      role = "admin";
-    } else role = "user";
 
     const newUser = new User({
       username,
@@ -26,7 +22,6 @@ export const SignUp = async (req, res, next) => {
       phoneNumber,
       gender,
       dob: dobParsed,
-      role,
     });
     try {
       await newUser.save();
