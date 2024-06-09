@@ -8,9 +8,7 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const { setToken, setUsername } = useContext(StoreContext)
-  const [username, setUser] = useState('')
-  const [password, setPassword] = useState('')
+  const { username, setUsername, password, setPassword, setToken, setEmail, setPhone, setGender, setDoB } = useContext(StoreContext)
 
   async function submit(e) {
     e.preventDefault();
@@ -30,6 +28,10 @@ function Login() {
           else if (res.status === 200) {
             setToken(res.data.token)
             setUsername(res.data.rest.username)
+            setEmail(res.data.rest.email)
+            setPhone(res.data.rest.phoneNumber)
+            setGender(res.data.rest.gender)
+            setDoB(res.data.rest.dob)
             localStorage.setItem("token", res.data.token);
             navigate('/concerts')
           }
@@ -54,7 +56,7 @@ function Login() {
         <div className='input'>
           <span className='label-value'>Username</span>
           <div className='input-value'>
-            <input type="text" onChange={(e) => { setUser(e.target.value) }} placeholder="" />
+            <input type="text" onChange={(e) => { setUsername(e.target.value) }} placeholder="" />
           </div>
         </div>
         <div className='input'>
