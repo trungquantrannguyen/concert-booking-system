@@ -8,8 +8,11 @@ function SignUp() {
 
   const navigate = useNavigate()
 
-  const { username, setUsername, password, setPassword, email, setEmail, phoneNumber, setPhone, gender, setGender, dob, setDoB } = useContext(StoreContext)
-
+  const { username, setUsername,
+          password, setPassword,
+          email, setEmail, phoneNumber,
+          setPhone, gender, setGender,
+          dob, setDoB } = useContext(StoreContext)
 
   async function submit(e) {
     e.preventDefault();
