@@ -2,7 +2,7 @@ import Booking from "../models/booking.model.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import Stripe from "stripe";
 import { createTicket } from "./ticket.controller.js";
-import Concert from "../models/conert.model.js";
+import Concert from "../models/concert.model.js";
 import Ticket from "../models/ticket.model.js";
 
 export const getAllUserBooking = async (req, res, next) => {

@@ -61,6 +61,9 @@ function Navbar() {
                                     <NavLink className="nav-link" to="/profile">Welcome, {username}!</NavLink>
                                 </div>
                                 <div className="nav-item">
+                                    <NavLink className="nav-link" to="/dbconcerts" >createconcert</NavLink>
+                                </div>
+                                <div className="nav-item">
                                     <NavLink className="nav-link" to="/" onClick={handleLogout}>logout</NavLink>
                                 </div>
                             </>}
