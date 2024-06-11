@@ -1,18 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import '../Login/Login.css'
 import axios from "axios"
 import { useNavigate, Link } from 'react-router-dom'
+import { StoreContext } from '../../context/StoreContext'
 
 function SignUp() {
 
   const navigate = useNavigate()
 
-  const [username, setUser] = useState()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
-  const [phoneNumber, setPhoneNumber] = useState()
-  const [gender, setGender] = useState()
-  const [dob, setDoB] = useState()
+  const { username, setUsername, password, setPassword, email, setEmail, phoneNumber, setPhone, gender, setGender, dob, setDoB } = useContext(StoreContext)
 
 
   async function submit(e) {
@@ -48,7 +44,7 @@ function SignUp() {
         <div className='input'>
           <span className='label-value'>Username</span>
           <div className='input-value'>
-            <input type="text" onChange={(e) => { setUser(e.target.value) }} placeholder="" />
+            <input type="text" onChange={(e) => { setUsername(e.target.value) }} placeholder="" />
           </div>
         </div>
         <div className='input'>
@@ -66,7 +62,7 @@ function SignUp() {
         <div className='input'>
           <span className='label-value'>Phone Number</span>
           <div className='input-value'>
-            <input type='text' onChange={(e) => { setPhoneNumber(e.target.value) }} placeholder="" />
+            <input type='text' onChange={(e) => { setPhone(e.target.value) }} placeholder="" />
           </div>
         </div>
         <div className='input'>
@@ -79,9 +75,9 @@ function SignUp() {
           </div>
         </div>
         <div className='input'>
-        <span className='label-value'>Date of Birth</span>
-        <div className='input-value'>
-          <input type='date' onChange={(e) => { setDoB(e.target.value) }} placeholder="" />
+          <span className='label-value'>Date of Birth</span>
+          <div className='input-value'>
+            <input type='date' onChange={(e) => { setDoB(e.target.value) }} placeholder="" />
           </div>
         </div>
         <div className="d-grid gap-2 mt-3">
