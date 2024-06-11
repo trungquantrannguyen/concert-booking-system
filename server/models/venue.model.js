@@ -14,6 +14,16 @@ const venueSchema = new mongoose.Schema(
       type: Number,
       require: true,
     },
+    seatClass: {
+      type: Map,
+      of: Number,
+      require: true,
+    },
+    priceRange: {
+      type: Map,
+      of: Number,
+      require: true,
+    },
   },
   { timestamps: true }
 );

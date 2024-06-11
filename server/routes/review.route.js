@@ -10,8 +10,8 @@ import { verifyToken } from "../utils/verifyUser.js";
 const router = express.Router();
 
 router.get("/:concertID", getAllReviewsFromConcert);
-router.post("/:id", verifyToken, createReview);
-router.delete("/adminID/:id", verifyToken, deleteReview);
-router.put("/:userID/:id", verifyToken, updateReview);
+router.post("/", verifyToken, createReview);
+router.delete("/:id/:reviewID", verifyToken, deleteReview);
+router.put("/:userID/:reviewID", verifyToken, updateReview);
 
 export default router;
