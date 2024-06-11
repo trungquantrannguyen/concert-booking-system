@@ -8,16 +8,19 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const { setToken, setUsername } = useContext(StoreContext)
-  const [username, setUser] = useState('')
-  const [password, setPassword] = useState('')
+  const { username, setUsername,
+    password, setPassword,
+    setToken, _id, setID,
+    setEmail, setPhone,
+    setGender, setDoB } = useContext(StoreContext)
 
   async function submit(e) {
     e.preventDefault();
 
     try {
       await axios.post("http://localhost:3000/api/user/signin", {
-        username, password
+        username: username,
+        password: password
       })
         .then(res => {
           console.log(res)
@@ -29,8 +32,15 @@ function Login() {
           }
           else if (res.status === 200) {
             setToken(res.data.token)
+            setID(res.data.rest._id)
             setUsername(res.data.rest.username)
-            localStorage.setItem("token", res.data.token);
+            setEmail(res.data.rest.email)
+            setPhone(res.data.rest.phoneNumber)
+            setGender(res.data.rest.gender)
+            setDoB(res.data.rest.dob)
+            localStorage.setItem("user", JSON.stringify(res.data.rest));
+            document.cookie = `access_token=${res.data.token}`
+            console.log(document.cookie)
             navigate('/concerts')
           }
         })
@@ -54,7 +64,7 @@ function Login() {
         <div className='input'>
           <span className='label-value'>Username</span>
           <div className='input-value'>
-            <input type="text" onChange={(e) => { setUser(e.target.value) }} placeholder="" />
+            <input type="text" onChange={(e) => { setUsername(e.target.value) }} placeholder="" />
           </div>
         </div>
         <div className='input'>

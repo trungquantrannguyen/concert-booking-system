@@ -1,32 +1,52 @@
-#profile-container{
-    align-content: center;
-    text-align: center;
-    margin-top: 100px;
-    width: 80%;
-    height: auto;
-}
-.card-img-top{
-    width: 200px;
-    height:
-     200px;
-}
-.list-group{
-    text-align: left;
-    font-size: 18px;
-    font-weight: 400px;
-}
-.card-body h5{
-    margin: 20px 0px;
+#profile-container {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: initial;
+    border: 1px #5454B8;
 }
 
-.btn{
+.profile-head {
+    margin-right: 20px;
+
+}
+
+.profile-body {
+    margin-left: 20px;
+}
+
+.card-img-top {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+}
+
+#profile-container .col-form-label {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+#profile-container .form-control {
+    width: 80%;
+    background-color: #ffffff;
+    opacity: 0.3;
+}
+
+#profile-container .profile-body .btn {
+    margin-top: 30px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 50px;
+    width: 50%;
+    background-color: #5454B8;
+    border: #5454B8;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    margin: 20px 400px;
+}
+
+#profile-container .btn:focus {
+    display: flex;
+    background-color: #5454B8;
+    border: #5454B8;
 }
