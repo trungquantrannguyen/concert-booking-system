@@ -29,15 +29,16 @@ export const createTicket = async (ticketClass, concertID) => {
     // console.log(seat);
     // console.log(capacity);
     if (ticketClass == seat) {
-      const remaining = capacity;
+      const remaining = capacity - 1;
       const seatNumber = capacity - remaining;
       const price = venue.priceRange.get(seat);
-      console.log({ seatNumber, price, seat });
+      // console.log({ seatNumber, price, seat });
       ticket = await Ticket.create({
         ticketClass: seat,
         seatNumber: seatNumber,
         price: price,
       });
+      await Venue.findByIdAndUpdate(concert.venue, { capacity: remaining });
       // console.log(ticket);
     }
   }

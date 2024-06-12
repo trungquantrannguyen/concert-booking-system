@@ -31,7 +31,7 @@ export const createConcert = async (req, res, next) => {
   }
   const { name, artist, date, time, venue } = req.body;
   const formatDate = new Date(date);
-  const newConcert = { name, artist, formatDate, time, venue };
+  const newConcert = { name, artist, date: formatDate, time, venue };
   try {
     const concert = await Concert.create(newConcert);
     res.status(201).json({
