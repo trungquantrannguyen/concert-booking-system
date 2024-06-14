@@ -1,14 +1,28 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import Navbar from '../../components/Navbar/Navbar';
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './Profile.css'
 import { StoreContext } from "../../context/StoreContext"
 import user from '../../assets/user_icon.png'
 
 function Profile() {
     const navigate = useNavigate()
-    const { username, setUsername, email, setEmail,
-        phoneNumber, setPhone, gender, setGender, dob, setDoB } = useContext(StoreContext)
+    const { username, setUsername,
+        email, setEmail,
+        phoneNumber, setPhone,
+        gender, setGender,
+        dob, setDoB } = useContext(StoreContext)
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            setUsername(userData.username || '');
+            setEmail(userData.email || '');
+            setPhone(userData.phoneNumber || '');
+            setGender(userData.gender || '');
+            setDoB(userData.dob || '');
+        }
+    }, [setUsername, setEmail, setPhone, setGender, setDoB]);
 
     async function submit(e) {
         e.preventDefault();
@@ -78,7 +92,7 @@ function Profile() {
                         <div className="row mb-3">
                             <label className="col-form-label">Profile Image</label>
                             <div className="col-sm-10">
-                            <input type="file" className="form-control" />
+                                <input type="file" className="form-control" />
                             </div>
                         </div>
                         <button type="submit" className="btn btn-primary" onClick={submit}>update</button>

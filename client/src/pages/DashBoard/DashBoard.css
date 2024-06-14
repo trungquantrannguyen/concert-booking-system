@@ -1,0 +1,48 @@
+.db-container{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.db-container .btn{
+    background-color: #5454B8;
+    border: #5454B8;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.db-container .btn:focus{
+    display: flex;
+    background-color: #5454B8;
+    border: #5454B8;
+}
+
+.db-container table th{
+    text-align: center;
+    background-color: #5454B8;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.db-container table td{
+    vertical-align: middle;
+    color: #070734;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.db-container table ul{
+    text-align: center;
+    background-color: #fff;
+}
+
+.db-container table li{
+    text-align: center;
+    background-color: #fff;
+    color: #070734;
+    font-size: 18px;
+    font-weight: 500;
+}

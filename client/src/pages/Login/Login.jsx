@@ -10,7 +10,7 @@ function Login() {
 
   const { username, setUsername,
     password, setPassword,
-    setToken, _id, setID,
+    setToken, setID,
     setEmail, setPhone,
     setGender, setDoB } = useContext(StoreContext)
 
@@ -31,6 +31,7 @@ function Login() {
             alert('Incorrect user or password')
           }
           else if (res.status === 200) {
+            const userData = res.data.rest;
             setToken(res.data.token)
             setID(res.data.rest._id)
             setUsername(res.data.rest.username)
@@ -38,9 +39,9 @@ function Login() {
             setPhone(res.data.rest.phoneNumber)
             setGender(res.data.rest.gender)
             setDoB(res.data.rest.dob)
-            localStorage.setItem("user", JSON.stringify(res.data.rest));
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("userData", JSON.stringify(userData));
             document.cookie = `access_token=${res.data.token}`
-            console.log(document.cookie)
             navigate('/concerts')
           }
         })
