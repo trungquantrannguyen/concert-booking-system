@@ -4,15 +4,15 @@ import './Search.css'
 function Search(){
 
     return(
-        <div class="container-fluid" id="search-container">
-            <form class="d-flex" role="search">
+        <div className="container-fluid" id="search-container">
+            <form className="d-flex" role="search">
                 <input 
-                    class="form-control me-2" 
+                    className="form-control me-2" 
                     type="search" 
                     placeholder="Search" 
                     aria-label="Search"
                 />
-                <button class="btn-search" type="submit">Search</button>
+                <button className="btn-search" type="submit">Search</button>
             </form>
         </div>
     );
