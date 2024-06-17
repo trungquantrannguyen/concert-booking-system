@@ -7,6 +7,7 @@ const StoreContextProvider = (props) => {
     const [token, setToken] = useState(localStorage.getItem('token') || '')
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {});
     const [_id, setID] = useState('')
+    const [isAdmin, setIsAdmin] = useState(false);
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState()
@@ -34,6 +35,7 @@ const StoreContextProvider = (props) => {
     const contextValue = {
         token, setToken,
         _id, setID,
+        isAdmin, setIsAdmin,
         user, setUser,
         username, setUsername,
         email, setEmail,

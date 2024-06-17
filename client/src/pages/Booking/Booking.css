@@ -1,0 +1,69 @@
+.buy-ticket {
+  margin-top: 70px;
+}
+
+.card-title{
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+.seat-selection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.seat-selection span {
+  margin: 0 15px;
+  font-size: 18px;
+}
+
+.btn-outline-secondary {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.btn-primary {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+@media (max-width: 576px) {
+  .seat-selection {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .seat-selection span {
+    margin: 0 10px;
+  }
+
+  .btn-outline-secondary {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+}

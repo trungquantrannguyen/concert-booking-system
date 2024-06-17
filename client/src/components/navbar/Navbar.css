@@ -1,27 +1,46 @@
-.navbar{
+.navbar {
     display: flex;
 }
+
 .navbar-brand {
     font-size: 20px;
     font-weight: 500;
     color: #fff;
 }
+
 .navbar-brand:hover {
     font-size: 20px;
     font-weight: 500;
     color: #fff;
 }
-.navbar-nav a{
+
+.navbar-nav .nav-item .nav-link {
     font-size: 18px;
     font-weight: 300;
     color: #fff;
 }
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
     color: #5454B8;
     font-weight: 600;
 }
-.navbar-nav a:hover{
+
+.nav-link:hover{
+    background-color: #bdbdf0;
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover {
     color: #5454B8;
     font-weight: 400;
     cursor: pointer;
+}
+
+.navbar-nav.me-auto {
+    margin-right: auto;
+}
+
+.navbar-nav.ms-auto {
+    margin-left: auto;
 }

@@ -1,0 +1,18 @@
+.concert-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 0;
+}
+
+.concert-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}

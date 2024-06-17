@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useContext, useEffect } from 'react';
 import Home from './pages/Home/Home';
-import Concert from './pages/Concert';
+import Concert from './pages/Concert/Concert';
 import Artist from './pages/Artist';
 import SignUp from './pages/SignUp/SignUp';
 import Login from "./pages/Login/Login";
@@ -15,8 +15,8 @@ import UpdateArtist from './pages/DashBoard/DBArtists/UpdateArtist/UpdateArtist'
 import DBVenues from './pages/DashBoard/DBVenues/DBVenues';
 import CreateVenue from './pages/DashBoard/DBVenues/CreateVenue/CreateVenue';
 import UpdateVenue from './pages/DashBoard/DBVenues/UpdateVenue/UpdateVenue';
-import Cart from './pages/Cart/Cart';
-import ConfirmBooking from './pages/ConfirmBooking/ConfirmBooking';
+import Booking from './pages/Booking/Booking';
+import ConfirmBooking from './pages/ConfirmBooking/ConfirmBooking'
 import { StoreContext} from './context/StoreContext';
 
 function App() {
@@ -56,7 +56,7 @@ function App() {
           <Route path="/dbvenues" element={<DBVenues />} />
           <Route path="/dbvenues/create-venue" element={<CreateVenue />} />
           <Route path="/dbvenues/edit-venue/:venueID" element={<UpdateVenue />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/concerts/buy-ticket/:concertID" element={<Booking />} />
           <Route path="/confirmbooking" element={<ConfirmBooking />} />
         </Routes>
       </Router>
