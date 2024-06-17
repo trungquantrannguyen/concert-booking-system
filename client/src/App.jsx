@@ -18,6 +18,7 @@ import UpdateVenue from './pages/DashBoard/DBVenues/UpdateVenue/UpdateVenue';
 import Booking from './pages/Booking/Booking';
 import ConfirmBooking from './pages/ConfirmBooking/ConfirmBooking'
 import { StoreContext} from './context/StoreContext';
+import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess';
 
 function App() {
   const { setToken, setID, 
@@ -57,7 +58,8 @@ function App() {
           <Route path="/dbvenues/create-venue" element={<CreateVenue />} />
           <Route path="/dbvenues/edit-venue/:venueID" element={<UpdateVenue />} />
           <Route path="/concerts/buy-ticket/:concertID" element={<Booking />} />
-          <Route path="/confirmbooking" element={<ConfirmBooking />} />
+          <Route path="/confirm-booking" element={<ConfirmBooking />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
         </Routes>
       </Router>
     </>

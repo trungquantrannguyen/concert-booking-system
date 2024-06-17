@@ -53,7 +53,7 @@ const Booking = () => {
   };
 
   const handleSubmit = () => {
-    navigate('/confirmbooking', {
+    navigate('/confirm-booking', {
       state: {
         concertID: concert._id,
         concert: concert.name,
@@ -101,7 +101,7 @@ const Booking = () => {
                       <Button
                         variant="outline-secondary"
                         onClick={() => handleSeatChange(className, -1)}
-                        disabled={(selectedSeats[className] || 0) <= 0}
+                        disabled={(selectedSeats[className] || 0) < 0}
                       >
                         -
                       </Button>
