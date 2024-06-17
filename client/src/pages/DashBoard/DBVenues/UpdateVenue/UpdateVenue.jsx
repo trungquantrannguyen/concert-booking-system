@@ -102,8 +102,8 @@ function UpdateVenue() {
                     <Sidebar />
                 </Col>
                 <Col sm={10}>
-                    <h2>Update Venue</h2>
-                    <Form onSubmit={submit}>
+                    <h2 className='update-header'>Update Venue</h2>
+                    <Form onSubmit={submit} className='update-form'>
                         <Form.Group controlId="venueName">
                             <Form.Label>Venue Name</Form.Label>
                             <Form.Control
@@ -156,12 +156,12 @@ function UpdateVenue() {
                                     />
                                 </Col>
                                 <Col>
-                                    <Button onClick={updateSeatClass}>Update</Button>
+                                    <Button onClick={updateSeatClass}>update</Button>
                                 </Col>
                             </Row>
                         </Form.Group>
                         <div>
-                            <h5>Seat Classes:</h5>
+                            <h6>Seat Classes</h6>
                             {Object.keys(venue.seatClass || {}).map((key) => (
                                 <p key={key}>{key}: {venue.seatClass[key]}</p>
                             ))}
@@ -188,18 +188,18 @@ function UpdateVenue() {
                                     />
                                 </Col>
                                 <Col>
-                                    <Button onClick={updatePriceRange}>Update</Button>
+                                    <Button onClick={updatePriceRange}>update</Button>
                                 </Col>
                             </Row>
                         </Form.Group>
                         <div>
-                            <h5>Price Ranges:</h5>
+                            <h6>Price Ranges</h6>
                             {Object.keys(venue.priceRange || {}).map((key) => (
                                 <p key={key}>{key}: {venue.priceRange[key]}</p>
                             ))}
                         </div>
                         <div className='d-grid gap-2 mt-3'>
-                            <Button variant='primary' type='submit'>Update</Button>
+                            <Button variant='primary' className='mt-3' type='submit'>update</Button>
                         </div>
                     </Form>
                 </Col>

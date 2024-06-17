@@ -97,24 +97,24 @@ function CreateVenue() {
                         <div className='input'>
                             <span className='label-value'>Venue Name</span>
                             <div className='input-value'>
-                                <input type='text' onChange={(e) => setVenueName(e.target.value)} placeholder='Enter venue name' />
+                                <input type='text' onChange={(e) => setVenueName(e.target.value)} placeholder='' />
                             </div>
                         </div>
                         <div className='input'>
                             <span className='label-value'>Location</span>
                             <div className='input-value'>
-                                <input type='text' onChange={(e) => setLocation(e.target.value)} placeholder='Enter location' />
+                                <input type='text' onChange={(e) => setLocation(e.target.value)} placeholder='' />
                             </div>
                         </div>
                         <div className='input'>
                             <span className='label-value'>Capacity</span>
                             <div className='input-value'>
-                                <input type='number' onChange={(e) => setCapacity(e.target.value)} placeholder='Enter capacity' />
+                                <input type='number' onChange={(e) => setCapacity(e.target.value)} placeholder='' />
                             </div>
                         </div>
                         <div className='input'>
                             <span className='label-value'>Seat Class</span>
-                            <div className='input-value'>
+                            <div className='input-value-select'>
                                 <Col>
                                     <input
                                         type='text'
@@ -134,19 +134,19 @@ function CreateVenue() {
                                     />
                                 </Col>
                                 <Col>
-                                    <Button onClick={addSeatClass}>Add</Button>
+                                    <Button className='btn' onClick={addSeatClass}>add</Button>
                                 </Col>
                             </div>
                         </div>
                         <div>
-                            <h5>Seat Classes:</h5>
+                            <h6>Seat Classes</h6>
                             {Object.keys(seatClass).map((key) => (
                                 <p key={key}>{key}: {seatClass[key]}</p>
                             ))}
                         </div>
                         <div className='input'>
                             <span className='label-value'>Price Range</span>
-                            <div className='input-value'>
+                            <div className='input-value-select'>
                                 <Col>
                                     <input
                                         type='text'
@@ -166,18 +166,18 @@ function CreateVenue() {
                                     />
                                 </Col>
                                 <Col>
-                                    <Button onClick={addPriceRange}>Add</Button>
+                                    <Button className='btn btn-primary' onClick={addPriceRange}>add</Button>
                                 </Col>
                             </div>
                         </div>
                         <div>
-                            <h5>Price Ranges:</h5>
+                            <h6>Price Ranges</h6>
                             {Object.keys(priceRange).map((key) => (
                                 <p key={key}>{key}: {priceRange[key]}</p>
                             ))}
                         </div>
                         <div className='d-grid gap-2 mt-3'>
-                            <input className='btn btn-primary' type='submit' onClick={submit} value='Create' />
+                            <input className='btn btn-primary' type='submit' onClick={submit} value='create' />
                         </div>
                     </form>
                 </Col>

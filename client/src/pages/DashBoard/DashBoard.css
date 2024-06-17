@@ -1,48 +1,94 @@
-.db-container{
+.input .label-value {
+    color: white;
+}
+
+.input .input-value input {
+    color: #070734;
+}
+
+.input .input-value-select input {
+    color: #fff;
+}
+
+.input-value-select {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+}
+.update-header{
+    margin-top: 70px;
+    color: #5454B8;
+}
+.update-form{
+    margin-bottom: 20px;
+}
+.btn, .btn-primary {
+    margin-top: 0px !important;
+    background-color: #5454B8; /* Assuming this is the color of the create button */
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.btn-primary:hover, .btn:hover {
+    background-color: #4545A1; /* Darken on hover */
+}
+
+.db-container {
     align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
 }
 
-.db-container .btn{
+.db-container .btn {
     background-color: #5454B8;
     border: #5454B8;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
+    color: white;
 }
 
-.db-container .btn:focus{
+.db-container .btn:focus {
     display: flex;
     background-color: #5454B8;
     border: #5454B8;
 }
 
-.db-container table th{
+.db-container table {
+    margin-top: 20px;
+}
+
+.db-container table th {
+    vertical-align: middle;
     text-align: center;
     background-color: #5454B8;
     color: #fff;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 500;
 }
 
-.db-container table td{
+.db-container table td {
     vertical-align: middle;
+    background-color: #fff !important;
     color: #070734;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 300;
 }
 
-.db-container table ul{
-    text-align: center;
-    background-color: #fff;
+.db-container table ul {
+    padding-left: 0;
 }
 
-.db-container table li{
-    text-align: center;
+.db-container table li {
     background-color: #fff;
     color: #070734;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 300;
 }

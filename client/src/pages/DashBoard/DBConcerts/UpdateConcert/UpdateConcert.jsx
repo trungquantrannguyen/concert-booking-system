@@ -52,7 +52,7 @@ const UpdateConcert = () => {
         }
     };
 
-    return (
+    return ( 
         <Container fluid>
             <Row>
                 <Navbar />
@@ -62,7 +62,7 @@ const UpdateConcert = () => {
                     <Sidebar />
                 </Col>
                 <Col sm={10}>
-                    <h2>Update Concert</h2>
+                    <h2 className='update-header'>Update Concert</h2>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="name">
                             <Form.Label>Name</Form.Label>
@@ -109,7 +109,7 @@ const UpdateConcert = () => {
                                 required 
                             />
                         </Form.Group>
-                        <Form.Group controlId="venue">
+                        <Form.Group controlId="venue" className='update-form'>
                             <Form.Label>Venue</Form.Label>
                             <Form.Control 
                                 as="select" 

@@ -66,8 +66,7 @@ const DBArtists = () => {
                             <tr>
                                 <th>Name</th>
                                 <th>Genre</th>
-                                <th></th>
-                                <th></th>
+                                <th colSpan="2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>

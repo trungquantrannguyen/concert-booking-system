@@ -1,10 +1,5 @@
-#profile-container {
+.user-profile {
     margin-top: 80px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: initial;
-    border: 1px #5454B8;
 }
 
 .profile-head {

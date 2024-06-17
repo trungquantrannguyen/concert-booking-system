@@ -55,7 +55,7 @@ const UpdateArtist = () => {
                     <Sidebar />
                 </Col>
                 <Col sm={10}>
-                    <h2>Update Artist</h2>
+                    <h2 className='update-header'>Update Artist</h2>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="name">
                             <Form.Label>Name</Form.Label>
@@ -67,7 +67,7 @@ const UpdateArtist = () => {
                                 required 
                             />
                         </Form.Group>
-                        <Form.Group controlId="genre">
+                        <Form.Group controlId="genre" className='update-form'>
                             <Form.Label>Genre</Form.Label>
                             <Form.Control 
                                 type="text" 

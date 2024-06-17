@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../../context/StoreContext';
 import Sidebar from '../../../components/Sidebar/Sidebar';
 import { Row, Col, Table, Container, Button } from 'react-bootstrap';
-import '../DashBoard.css'
+import '../DashBoard.css';
 
 const DBVenues = () => {
     const { token, _id } = useContext(StoreContext);
@@ -55,13 +55,11 @@ const DBVenues = () => {
                         </div>
                     </div>
                     <div>
-                        <Link
-                            to="/dbvenues/create-venue"
-                            className="btn btn-primary mb-3">
+                        <Link to="/dbvenues/create-venue" className="btn btn-primary mb-3">
                             create new venue
                         </Link>
                     </div>
-                    <Table striped bordered hover responsive>
+                    <Table striped bordered hover responsive className="text-center">
                         <thead>
                             <tr>
                                 <th>Venue Name</th>
@@ -69,8 +67,7 @@ const DBVenues = () => {
                                 <th>Capacity</th>
                                 <th>Seat Class</th>
                                 <th>Price Range</th>
-                                <th></th>
-                                <th></th>
+                                <th colSpan="2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,24 +77,24 @@ const DBVenues = () => {
                                     <td>{venue.location}</td>
                                     <td>{venue.capacity}</td>
                                     <td>
-                                        <ul>
+                                        <ul className="list-unstyled">
                                             {venue.seatClass && Object.entries(venue.seatClass).map(([seatClass, quantity]) => (
                                                 <li key={seatClass}>{seatClass}: {quantity}</li>
                                             ))}
                                         </ul>
                                     </td>
                                     <td>
-                                        <ul>
+                                        <ul className="list-unstyled">
                                             {venue.priceRange && Object.entries(venue.priceRange).map(([seatClass, price]) => (
                                                 <li key={seatClass}>{seatClass}: {price}</li>
                                             ))}
                                         </ul>
                                     </td>
                                     <td>
-                                        <Button className="btn btn-primary mb-3" onClick={() => handleUpdate(venue._id)}>update</Button>
+                                        <Button className="btn mb-3" onClick={() => handleUpdate(venue._id)}>update</Button>
                                     </td>
                                     <td>
-                                        <Button onClick={() => handleDelete(_id, venue._id)} className="btn btn-primary mb-3">delete</Button>
+                                        <Button onClick={() => handleDelete(_id, venue._id)} className="btn mb-3">delete</Button>
                                     </td>
                                 </tr>
                             ))}

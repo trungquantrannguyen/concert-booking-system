@@ -1,7 +1,7 @@
 #featured-events h1{
     font-size: 28px;
     font-weight: 500;
-    color: #000;
+    color: #fff;
 }
 .featured-events-list{
     display: flex;
@@ -23,7 +23,7 @@
     cursor: pointer;
 }
 .featured-events-list-item p{
-    color: grey;
+    color: #fff;
     cursor: pointer;
 }
 .genres-btn{
@@ -32,6 +32,6 @@
     border: 0px solid #d4d4d4;
     border-color: #d4d4d4;
     border-radius: 20px;
-    color: gray;
+    color: #fff;
 }
 

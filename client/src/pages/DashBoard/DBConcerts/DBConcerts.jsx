@@ -95,8 +95,7 @@ const DBConcerts = () => {
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Venue</th>
-                                <th></th>
-                                <th></th>
+                                <th colSpan="2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
