@@ -103,3 +103,18 @@ export const DeleteUser = async (req, res, next) => {
     next(err);
   }
 };
+
+export const GetUser = async (req, res, next) => {
+  const user = User.findById(req.params.id);
+
+  if (!user) {
+    return next(errorHandler(404, "User not found"));
+  }
+
+  try {
+    const { password: pass, ...rest } = user._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
