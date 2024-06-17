@@ -44,30 +44,57 @@ const ConfirmBooking = () => {
 
   const handleConfirm = async () => {
     setLoading(true);
-    try {
-      const response = await axios.post(
-        'http://localhost:3000/api/booking/',
-        {
-          concertID: state.concertID,
-          numOfTicket: Object.values(state.selectedSeats).reduce((a, b) => a + b, 0),
-          ticketClass: Object.entries(state.selectedSeats).map(([className, count]) => ({
-            className,
-            count,
-          })),
-        },
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
 
-      // Redirect to Stripe checkout
-      window.location.href = response.data.url;
+    const ticketClasses = Object.entries(state.selectedSeats).map(([className, count]) => ({
+      ticketClass: className,
+      concertID: state.concertID,
+      numOfTicket: count
+    }));
+
+    const numOfTicket = Object.values(state.selectedSeats).reduce((a, b) => a + b, 0);
+
+    try {
+      for (const bookingData of ticketClasses) {
+        console.log('Booking data:', bookingData); // Log booking data to check format
+
+        const response = await axios.post(
+          'http://localhost:3000/api/booking/',
+          bookingData,
+          {
+            headers: {
+              'Authorization': `${token}`,
+            },
+          }
+        );
+
+        const ticketIds = response.data.tickets.map(ticket => ticket._id);
+        console.log('Server response:', response.data); // Log server response to check for issues
+
+        // Store necessary booking details temporarily
+        sessionStorage.setItem('bookingDetails', JSON.stringify({
+          numOfTicket: numOfTicket,
+          totalPrice: totalPrice,
+          concertID: state.concertID,
+          tickets: ticketIds,
+        }));
+
+        // Redirect to Stripe checkout for the first response
+        if (response.data.url) {
+          window.location.href = response.data.url;
+          break;
+        }
+      }
     } catch (error) {
       console.error('Error confirming booking:', error);
+      if (error.response) {
+        console.error('Server responded with:', error.response.data); // Log server response for 400 error
+      }
       setLoading(false);
     }
+  };
+
+  const handleInputChange = (e) => {
+    setCardNumber(e.target.value);
   };
 
   if (!venue) {
@@ -75,11 +102,11 @@ const ConfirmBooking = () => {
   }
 
   return (
-    <Container fluid className="confirm-booking-container">
+    <Container fluid className="confirm-booking-container" style={{ paddingTop: '70px' }}>
       <Row>
         <Navbar />
       </Row>
-      <Row className="mt-4">
+      <Row className="confirm-booking-card">
         <Col md={6}>
           <Card className="mb-4">
             <Card.Body>
@@ -105,7 +132,7 @@ const ConfirmBooking = () => {
               <Card.Title>Selected Seats</Card.Title>
               {Object.entries(state.selectedSeats).map(([className, count]) => (
                 <Card.Text key={className}>
-                  <strong>{className}:</strong> {count} seats x {venue.priceRange[className]}đ = {count * venue.priceRange[className]} VND
+                  <strong>{className}:</strong> {count} seat(s) x {venue.priceRange[className]} VND = {count * venue.priceRange[className]} VND
                 </Card.Text>
               ))}
               <Card.Title>Total Price </Card.Title>
@@ -120,7 +147,7 @@ const ConfirmBooking = () => {
               <Form.Group controlId="paymentMethod">
                 <Form.Label>Select Payment Method</Form.Label>
                 <Form.Control
-                className='update-form'
+                  className='update-form'
                   as="select"
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
@@ -131,7 +158,7 @@ const ConfirmBooking = () => {
                 </Form.Control>
               </Form.Group>
               <Button variant="primary" onClick={handleConfirm} disabled={loading} className="btn-primary">
-                {loading ? 'Processing...' : 'Confirm Booking'}
+                {loading ? 'Processing...' : 'confirm booking'}
               </Button>
             </Card.Body>
           </Card>
