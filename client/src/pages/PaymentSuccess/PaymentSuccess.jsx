@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState,  useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
@@ -7,10 +7,17 @@ import { StoreContext } from '../../context/StoreContext';
 const PaymentSuccess = () => {
   const { token } = useContext(StoreContext);
   const navigate = useNavigate();
+  const [isBookingCreated, setIsBookingCreated] = useState(false);
+  const isMounted = useRef(false);
 
   useEffect(() => {
     const createBooking = async () => {
       const bookingDetails = JSON.parse(sessionStorage.getItem('bookingDetails'));
+
+      if (!bookingDetails) {
+        navigate('/concerts');
+        return;
+      }
 
       try {
 
@@ -23,12 +30,18 @@ const PaymentSuccess = () => {
           }
         );
         console.log('Booking created:', response.data);
+        sessionStorage.removeItem('bookingDetails');
+        setIsBookingCreated(true);
       } catch (error) {
         console.error('Error creating booking:', error);
       }
     };
-    createBooking();
-  }, [token]);
+    if (isMounted.current && !isBookingCreated) {
+      createBooking();
+    } else {
+      isMounted.current = true;
+    }
+  }, [token, navigate, isBookingCreated]);
 
   return (
     <Container fluid className="payment-success-container" style={{ paddingTop: '70px' }}>

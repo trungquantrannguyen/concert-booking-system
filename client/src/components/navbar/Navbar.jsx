@@ -19,6 +19,7 @@ function Navbar() {
                     if (res.status === 200) {
                         setToken(null);
                         localStorage.setItem("token", null);
+                        localStorage.removeItem("user");
                         navigate('/');
                     }
                 });
