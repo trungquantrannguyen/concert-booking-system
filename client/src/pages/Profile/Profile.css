@@ -1,47 +1,29 @@
-.user-profile {
-    margin-top: 80px;
-}
-
-.profile-head {
-    margin-right: 20px;
-
-}
-
-.profile-body {
-    margin-left: 20px;
-}
-
-.card-img-top {
-    width: 150px;
-    height: 150px;
-    border-radius: 100px;
-}
-
-#profile-container .col-form-label {
-    font-size: 18px;
-    font-weight: 400;
-}
-
-#profile-container .form-control {
-    width: 80%;
-    background-color: #ffffff;
-    opacity: 0.3;
-}
-
-#profile-container .profile-body .btn {
-    margin-top: 30px;
+.user-profile-card {
+    align-items: center;
     display: flex;
-    justify-content: center;
-    width: 50%;
-    background-color: #5454B8;
-    border: #5454B8;
-    font-size: 20px;
-    font-weight: 600;
-    cursor: pointer;
+    margin-top: 100px;
+    border-radius: 8px;
+    background-color: #070734;
 }
 
-#profile-container .btn:focus {
+.user-profile-input {
     display: flex;
-    background-color: #5454B8;
-    border: #5454B8;
+    flex-direction: row;
+}
+
+.user-title{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.user-profile-input{
+    margin-bottom: 30px;
 }
