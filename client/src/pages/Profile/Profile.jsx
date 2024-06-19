@@ -1,92 +1,120 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { StoreContext } from '../../context/StoreContext';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import Navbar from '../../components/Navbar/Navbar';
-import { useNavigate, Link } from 'react-router-dom'
-import './Profile.css'
-import { StoreContext } from "../../context/StoreContext"
-import user from '../../assets/user_icon.png'
+import './Profile.css';
+import { Row, Col, Form, Button, Card } from 'react-bootstrap';
 
 function Profile() {
-    const navigate = useNavigate()
-    const { username, setUsername, email, setEmail,
-        phoneNumber, setPhone, gender, setGender, dob, setDoB } = useContext(StoreContext)
+    const { token, _id } = useContext(StoreContext);
 
-    async function submit(e) {
+    const [userData, setUserData] = useState(() => {
+        const storedUserData = localStorage.getItem('userData');
+        return storedUserData ? JSON.parse(storedUserData) : { email: '', phoneNumber: '' };
+    });
+    const [password, setPassword] = useState('');
+
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'password') {
+            setPassword(value);
+        } else {
+            setUserData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            await axios.post('http://localhost:3000/api/user/signup', {
-                username, email, password, phoneNumber, gender, dob
-            })
-                .then(res => {
-                    console.log(res)
-                    if (res.status === 201 || res.data === "User created successfully") {
-                        navigate('/login')
-                    }
-                })
-                .catch(e => {
-                    alert('Wrong inputs!')
-                    console.log(e)
-                })
+            const updatedUserData = {
+                ...userData,
+                password: password 
+            };
+            const response = await axios.put(`http://localhost:3000/api/user/${_id}`, updatedUserData, {
+                headers: {
+                    'Authorization': `${token}`,
+                }
+            });
+            setSuccess('Profile updated successfully!');
+            setError(''); 
+
+            localStorage.setItem('userData', JSON.stringify(response.data));
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            setError('Failed to update profile. Please try again.');
+            setSuccess(''); 
         }
-        catch (e) {
-            console.log(e)
-        }
-    }
+    };
+
     return (
-        <>
-            <Navbar />
-            <div className="container" id="profile-container">
-                <div className="profile-head">
-                    <img src={user} className="card-img-top" />
-                    <h5 className="card-title">{username}'s profile</h5>
-                </div>
-                <div className="profile-body">
-                    <form>
-                        <div className="row mb-3">
-                            <label className=" col-form-label">Username</label>
-                            <div className="col-sm-10">
-                                <input type="text" className="form-control" onChange={(e) => { setUsername(e.target.value) }} value={username} />
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <label className="col-form-label">Email</label>
-                            <div className="col-sm-10">
-                                <input type="email" className="form-control" onChange={(e) => { setEmail(e.target.value) }} value={email} />
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <label className="col-form-label">Phone Number</label>
-                            <div className="col-sm-10">
-                                <input type='text' className="form-control" onChange={(e) => { setPhone(e.target.value) }} value={phoneNumber} />
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <label className="col-form-label">Gender</label>
-                            <div className="col-sm-10">
-                                <select name='gender' className="form-control" onChange={(e) => { setGender(e.target.value) }} value={gender}>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <label className="col-form-label">Day of Birth</label>
-                            <div className="col-sm-10">
-                                <input type='date' className="form-control" onChange={(e) => { setDoB(e.target.value) }} value={dob} />
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <label className="col-form-label">Profile Image</label>
-                            <div className="col-sm-10">
-                            <input type="file" className="form-control" />
-                            </div>
-                        </div>
-                        <button type="submit" className="btn btn-primary" onClick={submit}>update</button>
-                    </form>
-                </div>
-            </div>
-        </>
+        <div>
+            <Row>
+                <Navbar />
+            </Row>
+            <Row>
+                <Col sm={12}>
+                    <Card className="user-profile-card">
+                        <Card.Body>
+                            <Card.Title className='user-title'>User Profile</Card.Title>
+                            {error && <p className="error">{error}</p>}
+                            {success && <p className="success">{success}</p>}
+                            <Form className='user-profile-form' onSubmit={handleSubmit}>
+                                <Form.Group controlId="formEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control 
+                                        className='user-profile-input'
+                                        type="email"
+                                        name="email"
+                                        value={userData.email}
+                                        onChange={handleChange}
+                                        placeholder="Enter email"
+                                        required
+                                    />
+                                </Form.Group>
+
+                                <Form.Group controlId="formPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        className='user-profile-input'
+                                        type="password"
+                                        name="password"
+                                        value={password}
+                                        onChange={handleChange}
+                                        placeholder="Password"
+                                        required
+                                    />
+                                </Form.Group>
+
+                                <Form.Group controlId="formPhoneNumber">
+                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Control
+                                        className='user-profile-input'
+                                        type="text"
+                                        name="phoneNumber"
+                                        value={userData.phoneNumber}
+                                        onChange={handleChange}
+                                        placeholder="Enter phone number"
+                                        required
+                                    />
+                                </Form.Group>
+
+                                <Button variant="primary" type="submit" className='btn btn-primary'>
+                                    update profile
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </div>
     );
 }
 
-export default Profile
+export default Profile;
