@@ -19,26 +19,30 @@ export const getTicketsfromBooking = async (req, res, next) => {
 
 export const createTicket = async (ticketClass, concertID) => {
   const concert = await Concert.findById(concertID);
+  // console.log(concert);
   // console.log(concert.venue);
 
   const venue = await Venue.findById(concert.venue);
   // console.log(venue.seatClass);
   // console.log(venue.priceRange);
   let ticket;
-  for (const [seat, capacity] of venue.seatClass.entries()) {
-    // console.log(seat);
-    // console.log(capacity);
+  for (const [seat, classCapacity] of venue.seatClass.entries()) {
+    console.log(seat);
+    console.log(classCapacity);
     if (ticketClass == seat) {
-      const remaining = capacity - 1;
-      const seatNumber = capacity - remaining;
+      const remaining = classCapacity - 1;
+      const seatNumber = classCapacity - remaining;
       const price = venue.priceRange.get(seat);
-      // console.log({ seatNumber, price, seat });
+      console.log({ seatNumber, price, seat });
+      console.log(remaining);
       ticket = await Ticket.create({
         ticketClass: seat,
         seatNumber: seatNumber,
         price: price,
       });
-      await Venue.findByIdAndUpdate(concert.venue, { capacity: remaining });
+      await Venue.findByIdAndUpdate(concert.venue, {
+        $set: { [`seatClass.${seat}`]: remaining },
+      });
       // console.log(ticket);
     }
   }

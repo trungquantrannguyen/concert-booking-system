@@ -24,6 +24,9 @@ const venueSchema = new mongoose.Schema(
       of: Number,
       require: true,
     },
+    imgURL: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
