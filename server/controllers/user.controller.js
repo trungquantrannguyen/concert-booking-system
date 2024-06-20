@@ -70,6 +70,7 @@ export const updateUser = async (req, res, next) => {
           email: req.body.email,
           password: req.body.password,
           phoneNumber: req.body.phoneNumber,
+          imgURL: req.body.imgURL,
         },
       },
       { new: true }
@@ -101,5 +102,20 @@ export const DeleteUser = async (req, res, next) => {
     res.status(200).json("User has been deleted");
   } catch (err) {
     next(err);
+  }
+};
+
+export const GetUser = async (req, res, next) => {
+  const user = User.findById(req.params.id);
+
+  if (!user) {
+    return next(errorHandler(404, "User not found"));
+  }
+
+  try {
+    const { password: pass, ...rest } = user._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
   }
 };

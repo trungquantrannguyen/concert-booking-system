@@ -22,6 +22,9 @@ const concertSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Venue",
     },
+    imgURL: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
