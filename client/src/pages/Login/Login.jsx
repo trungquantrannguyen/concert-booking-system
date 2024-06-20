@@ -42,7 +42,7 @@ function Login() {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userData", JSON.stringify(userData));
             document.cookie = `access_token=${res.data.token}`
-            navigate('/concerts')
+            navigate('/')
           }
         })
         .catch(e => {

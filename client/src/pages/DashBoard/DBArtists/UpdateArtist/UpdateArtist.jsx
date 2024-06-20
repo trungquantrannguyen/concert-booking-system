@@ -5,6 +5,7 @@ import { StoreContext } from '../../../../context/StoreContext';
 import Navbar from '../../../../components/Navbar/Navbar';
 import Sidebar from '../../../../components/Sidebar/Sidebar';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
+import { concertImg, getDownloadURL, ref, uploadBytesResumable } from '../../../../firebase';
 
 const UpdateArtist = () => {
     const { artistID } = useParams();
@@ -14,8 +15,7 @@ const UpdateArtist = () => {
 
     useEffect(() => {
         const fetchArtist = async () => {
-            try {
-                
+            try {               
                 const artistResponse = await axios.get(`http://localhost:3000/api/artist/${artistID}`);
                 setArtist(artistResponse.data);
             } catch (error) {
@@ -31,8 +31,19 @@ const UpdateArtist = () => {
         setArtist({ ...artist, [name]: value });
     };
 
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const storageRef = ref(concertImg, `artists/${file.name}`);
+            await uploadBytesResumable(storageRef, file);
+            const url = await getDownloadURL(storageRef);
+            setArtist({ ...artist, imgURL: url });
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(artist)
         try {
             await axios.put(`http://localhost:3000/api/artist/${_id}/${artistID}`, artist, {
                 headers: {
@@ -75,6 +86,14 @@ const UpdateArtist = () => {
                                 value={artist.genre || ''} 
                                 onChange={handleInputChange} 
                                 required 
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="imgURL">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control 
+                                type="file" 
+                                name="imgURL" 
+                                onChange={handleFileChange} 
                             />
                         </Form.Group>
                         <Button variant="primary" type="submit" className="mt-3">update artist</Button>

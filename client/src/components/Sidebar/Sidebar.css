@@ -93,26 +93,3 @@
       font-size: 18px;
   }
 }
-
-@media (max-width: 576px) {
-  #sidebar {
-      width: 0;
-  }
-
-  #sidebar.sidebar-responsive {
-      width: 100%;
-  }
-
-  .sidebar-title,
-  .sidebar-list-item > a {
-      padding: 10px 15px;
-  }
-  
-  .sidebar-list-item {
-      padding: 8px 10px;
-  }
-
-  .sidebar-brand {
-      font-size: 18px;
-  }
-}
