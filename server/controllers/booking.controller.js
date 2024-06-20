@@ -34,6 +34,7 @@ export const selectBooking = async (req, res, next) => {
 export const confirmBooking = async (req, res, next) => {
   const stripe = new Stripe(process.env.STRIPE_KEY);
   const tickets = [];
+  console.log("something");
   try {
     for (let index = 0; index < req.body.numOfTicket; index++) {
       const ticket = await createTicket(
@@ -63,8 +64,8 @@ export const confirmBooking = async (req, res, next) => {
         };
       }),
       mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/confirmbooking`,
-      cancel_url: `${process.env.CLIENT_URL}/cart`,
+      success_url: `${process.env.CLIENT_URL}/payment-success`,
+      cancel_url: `${process.env.CLIENT_URL}/buy-ticket`,
     });
     res.status(200).json({ url: session.url, tickets });
   } catch (error) {

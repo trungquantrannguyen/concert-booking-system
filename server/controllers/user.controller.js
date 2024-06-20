@@ -70,6 +70,7 @@ export const updateUser = async (req, res, next) => {
           email: req.body.email,
           password: req.body.password,
           phoneNumber: req.body.phoneNumber,
+          imgURL: req.body.imgURL,
         },
       },
       { new: true }

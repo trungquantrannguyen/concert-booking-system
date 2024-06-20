@@ -10,6 +10,9 @@ const artistSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    imgURL: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
