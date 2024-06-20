@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { concertImg, getDownloadURL, ref, uploadBytesResumable } from '../../../../firebase';
 import { StoreContext } from '../../../../context/StoreContext';
 import Sidebar from '../../../../components/Sidebar/Sidebar';
 import Navbar from '../../../../components/Navbar/Navbar';
@@ -17,6 +18,7 @@ function CreateVenue() {
     const [priceRange, setPriceRange] = useState({});
     const [currentSeatClass, setCurrentSeatClass] = useState({ class: '', quantity: '' });
     const [currentPriceRange, setCurrentPriceRange] = useState({ class: '', price: '' });
+    const [imageFile, setImageFile] = useState(null);
 
     const navigate = useNavigate();
 
@@ -52,8 +54,39 @@ function CreateVenue() {
         }
     };
 
+    async function handleImageUpload(e) {
+        const file = e.target.files[0];
+        setImageFile(file);
+    }
+
+    async function uploadImage(file) {
+        return new Promise((resolve, reject) => {
+            const storageRef = ref(concertImg, `venues/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                    reject(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        resolve(downloadURL);
+                    });
+                }
+            );
+        });
+    }
+
     async function submit(e) {
         e.preventDefault();
+        let imageUrl = '';
+        if (imageFile) {
+            imageUrl = await uploadImage(imageFile);
+        }
 
         try {
             await axios.post(`http://localhost:3000/api/venue/${_id}`, {
@@ -175,6 +208,12 @@ function CreateVenue() {
                             {Object.keys(priceRange).map((key) => (
                                 <p key={key}>{key}: {priceRange[key]}</p>
                             ))}
+                        </div>
+                        <div className='input'>
+                            <span className='label-value'>Venue Photo</span>
+                            <div className='input-value'>
+                                <input type='file' onChange={handleImageUpload} />
+                            </div>
                         </div>
                         <div className='d-grid gap-2 mt-3'>
                             <input className='btn btn-primary' type='submit' onClick={submit} value='create' />

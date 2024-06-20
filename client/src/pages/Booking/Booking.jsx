@@ -46,10 +46,15 @@ const Booking = () => {
   }, [concertID, token]);
 
   const handleSeatChange = (className, change) => {
-    setSelectedSeats((prevState) => ({
-      ...prevState,
-      [className]: (prevState[className] || 0) + change
-    }));
+    setSelectedSeats((prevState) => {
+      const updatedCount = (prevState[className] || 0) + change;
+      if (updatedCount > 0) {
+        return { ...prevState, [className]: updatedCount };
+      } else {
+        const { [className]: _, ...newState } = prevState;
+        return newState;
+      }
+    });
   };
 
   const handleSubmit = () => {

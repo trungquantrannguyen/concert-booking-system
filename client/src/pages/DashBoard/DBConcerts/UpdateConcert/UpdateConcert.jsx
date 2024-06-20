@@ -5,6 +5,7 @@ import { StoreContext } from '../../../../context/StoreContext';
 import Navbar from '../../../../components/Navbar/Navbar';
 import Sidebar from '../../../../components/Sidebar/Sidebar';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
+import { concertImg, getDownloadURL, ref, uploadBytesResumable } from '../../../../firebase';
 
 const UpdateConcert = () => {
     const { concertID } = useParams();
@@ -38,6 +39,16 @@ const UpdateConcert = () => {
         setConcert({ ...concert, [name]: value });
     };
 
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const storageRef = ref(concertImg, `concerts/${file.name}`);
+            await uploadBytesResumable(storageRef, file);
+            const url = await getDownloadURL(storageRef);
+            setConcert({ ...concert, imgURL: url });
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -52,7 +63,7 @@ const UpdateConcert = () => {
         }
     };
 
-    return ( 
+    return (
         <Container fluid>
             <Row>
                 <Navbar />
@@ -123,6 +134,14 @@ const UpdateConcert = () => {
                                     <option key={venue._id} value={venue._id}>{venue.venueName}</option>
                                 ))}
                             </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="imgURL">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control 
+                                type="file" 
+                                name="imgURL" 
+                                onChange={handleFileChange} 
+                            />
                         </Form.Group>
                         <Button variant="primary" type="submit" className="mt-3">update concert</Button>
                     </Form>

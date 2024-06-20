@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { concertImg, getDownloadURL, ref, uploadBytesResumable } from '../../../../firebase';
 import { StoreContext } from '../../../../context/StoreContext';
 import Sidebar from '../../../../components/Sidebar/Sidebar';
 import Navbar from '../../../../components/Navbar/Navbar';
@@ -17,6 +18,7 @@ function CreateConcert() {
 
     const [artists, setArtists] = useState([]);
     const [venues, setVenues] = useState([]);
+    const [imageFile, setImageFile] = useState(null);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -59,8 +61,39 @@ function CreateConcert() {
         }
     }
 
+    async function handleImageUpload(e) {
+        const file = e.target.files[0];
+        setImageFile(file);
+    }
+
+    async function uploadImage(file) {
+        return new Promise((resolve, reject) => {
+            const storageRef = ref(concertImg, `concerts/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                    reject(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        resolve(downloadURL);
+                    });
+                }
+            );
+        });
+    }
+
     async function submit(e) {
         e.preventDefault();
+        let imageUrl = '';
+        if (imageFile) {
+            imageUrl = await uploadImage(imageFile);
+        }
 
         try {
             await axios.post(`http://localhost:3000/api/concert/${_id}`, {
@@ -68,7 +101,8 @@ function CreateConcert() {
                 artist: artist,
                 date: date,
                 time: time,
-                venue: venue
+                venue: venue,
+                imgURL: imageUrl
             }, {
                 headers: {
                     'Authorization': `${token}`
@@ -143,6 +177,12 @@ function CreateConcert() {
                                         </option>
                                     ))}
                                 </select>
+                            </div>
+                        </div>
+                        <div className='input'>
+                            <span className='label-value'>Poster</span>
+                            <div className='input-value'>
+                                <input type='file' onChange={handleImageUpload} />
                             </div>
                         </div>
                         <div className='d-grid gap-2 mt-3'>
