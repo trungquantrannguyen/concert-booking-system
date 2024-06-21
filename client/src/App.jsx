@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useContext, useEffect } from 'react';
 import Home from './pages/Home/Home';
 import Concert from './pages/Concert/Concert';
-import Artist from './pages/Artist';
+import Artist from './pages/Artist/Artist';
+import Venue from './pages/Venue/Venue';
 import SignUp from './pages/SignUp/SignUp';
 import Login from "./pages/Login/Login";
 import Profile from './pages/Profile/Profile';
@@ -45,6 +46,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/concerts" element={<Concert />} />
           <Route path="/artists" element={<Artist />} />
+          <Route path="/venues" element={<Venue />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />

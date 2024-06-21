@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { concertImg, getDownloadURL, ref, uploadBytesResumable } from '../../../../firebase';
 import { StoreContext } from '../../../../context/StoreContext';
 import Sidebar from '../../../../components/Sidebar/Sidebar';
 import Navbar from '../../../../components/Navbar/Navbar';
@@ -9,18 +10,52 @@ import { Row, Col } from 'react-bootstrap';
 
 function CreateArtist() {
     const { _id, token,
-            artist, setArtist,
-            genre, setGenre } = useContext(StoreContext);
+        artist, setArtist,
+        genre, setGenre } = useContext(StoreContext);
 
+    const [imageFile, setImageFile] = useState(null);
     const navigate = useNavigate()
+
+    async function handleImageUpload(e) {
+        const file = e.target.files[0];
+        setImageFile(file);
+    }
+
+    async function uploadImage(file) {
+        return new Promise((resolve, reject) => {
+            const storageRef = ref(concertImg, `artists/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                    reject(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        resolve(downloadURL);
+                    });
+                }
+            );
+        });
+    }
 
     async function submit(e) {
         e.preventDefault();
+        let imageUrl = '';
+        if (imageFile) {
+            imageUrl = await uploadImage(imageFile);
+        }
+        console.log(imageUrl)
 
         try {
             await axios.post(`http://localhost:3000/api/artist/${_id}`, {
                 name: artist,
-                genre: genre
+                genre: genre,
+                imgURL: imageUrl
             }, {
                 headers: {
                     'Authorization': `${token}`
@@ -63,6 +98,12 @@ function CreateArtist() {
                             <span className='label-value'>Genre</span>
                             <div className='input-value'>
                                 <input type='text' onChange={(e) => setGenre(e.target.value)} placeholder='' />
+                            </div>
+                        </div>
+                        <div className='input'>
+                            <span className='label-value'>Artist Photo</span>
+                            <div className='input-value'>
+                                <input type='file' onChange={handleImageUpload} />
                             </div>
                         </div>
                         <div className='d-grid gap-2 mt-3'>

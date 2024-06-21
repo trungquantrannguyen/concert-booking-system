@@ -6,11 +6,13 @@ import Navbar from '../../../../components/Navbar/Navbar';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../..//DashBoard.css';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
+import { concertImg, getDownloadURL, ref, uploadBytesResumable } from '../../../../firebase';
 
 function UpdateVenue() {
     const { venueID } = useParams();
     const { token, _id } = useContext(StoreContext);
     const [venue, setVenue] = useState({});
+    const [imageUploading, setImageUploading] = useState(false);
     const navigate = useNavigate();
 
     const [currentSeatClass, setCurrentSeatClass] = useState({ class: '', quantity: '' });
@@ -76,9 +78,40 @@ function UpdateVenue() {
         }
     };
 
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImageUploading(true);
+            console.log("Uploading file:", file);
+            const storageRef = ref(concertImg, `venues/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                },
+                (error) => {
+                    console.error('Error uploading file:', error);
+                    setImageUploading(false);
+                },
+                async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    console.log("File available at", downloadURL);
+                    setVenue((prevVenue) => ({ ...prevVenue, imgURL: downloadURL }));
+                    setImageUploading(false);
+                }
+            );
+        }
+    };
+
     const submit = async (e) => {
         e.preventDefault();
-
+        if (imageUploading) {
+            console.log("Image is still uploading, please wait...");
+            return;
+        }
+        console.log("Submitting venue data:", venue);
         try {
             await axios.put(`http://localhost:3000/api/venue/${_id}/${venueID}`, venue, {
                 headers: {
@@ -156,7 +189,7 @@ function UpdateVenue() {
                                     />
                                 </Col>
                                 <Col>
-                                    <Button onClick={updateSeatClass}>update</Button>
+                                    <Button onClick={updateSeatClass}>Update</Button>
                                 </Col>
                             </Row>
                         </Form.Group>
@@ -188,7 +221,7 @@ function UpdateVenue() {
                                     />
                                 </Col>
                                 <Col>
-                                    <Button onClick={updatePriceRange}>update</Button>
+                                    <Button onClick={updatePriceRange}>Update</Button>
                                 </Col>
                             </Row>
                         </Form.Group>
@@ -198,8 +231,16 @@ function UpdateVenue() {
                                 <p key={key}>{key}: {venue.priceRange[key]}</p>
                             ))}
                         </div>
+                        <Form.Group controlId="imgURL">
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control 
+                                type="file" 
+                                name="imgURL" 
+                                onChange={handleFileChange} 
+                            />
+                        </Form.Group>
                         <div className='d-grid gap-2 mt-3'>
-                            <Button variant='primary' className='mt-3' type='submit'>update</Button>
+                            <Button variant='primary' className='mt-3' type='submit'>Update</Button>
                         </div>
                     </Form>
                 </Col>

@@ -7,7 +7,9 @@ import { StoreContext } from "../../context/StoreContext";
 
 function Navbar() {
     const navigate = useNavigate();
-    const { token, setToken, username } = useContext(StoreContext);
+    const { token, setToken, username, _id } = useContext(StoreContext);
+    const adminID1 = '6635da61e971629ba91e4a6d'
+    const adminID2 = '663733901d8699553b351e6a'
 
     async function handleLogout(e) {
         e.preventDefault();
@@ -54,6 +56,9 @@ function Navbar() {
                         <div className="nav-item">
                             <NavLink className="nav-link" to="/artists">artists</NavLink>
                         </div>
+                        <div className="nav-item">
+                            <NavLink className="nav-link" to="/venues">venues</NavLink>
+                        </div>
                     </div>
                     <div className="navbar-nav ms-auto">
                         {!token ?
@@ -67,11 +72,13 @@ function Navbar() {
                             </>
                             : <>
                                 <div className="nav-item">
-                                    <NavLink className="nav-link" to="/profile">welcome, {username}!</NavLink>
+                                    <NavLink className="nav-link" to="/profile">{username}'s profile</NavLink>
                                 </div>
-                                <div className="nav-item">
-                                    <NavLink className="nav-link" to="/dbconcerts">dashboard</NavLink>
-                                </div>
+                                {_id === adminID1 || _id === adminID2 && (
+                                    <div className="nav-item">
+                                        <NavLink className="nav-link" to="/dbconcerts">dashboard</NavLink>
+                                    </div>
+                                )}
                                 <div className="nav-item">
                                     <NavLink className="nav-link" to="/" onClick={handleLogout}>logout</NavLink>
                                 </div>
