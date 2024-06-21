@@ -1,9 +1,4 @@
-#featured-events h1{
-    font-size: 28px;
-    font-weight: 500;
-    color: #fff;
-}
-.featured-events-list{
+.featured-events-list-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,27 +6,27 @@
     gap: 30;
     margin: 20px 20px;
     overflow-x: visible;
+    border: none;
+    background-color: #070734;
 }
-.featured-events-list-item img{
-    width: 200px;
+
+.feature-image {
+    width: 80%;
     height: 200px;
     object-fit: contain;
-    cursor: pointer;
-    margin-bottom: 20px;
 }
-.featured-events-list-item h5{
-    cursor: pointer;
-}
-.featured-events-list-item p{
-    color: #fff;
-    cursor: pointer;
-}
-.genres-btn{
+
+.genres-btn {
     width: 100px;
     height: 50px;
     border: 0px solid #d4d4d4;
     border-color: #d4d4d4;
     border-radius: 20px;
     color: #fff;
+    align-items: center;
+    text-align: center;
 }
 
+.feature-card-title{
+    text-decoration: none;
+}

@@ -11,6 +11,7 @@ const UpdateArtist = () => {
     const { artistID } = useParams();
     const { token, _id } = useContext(StoreContext);
     const [artist, setArtist] = useState({});
+    const [imageUploading, setImageUploading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +20,7 @@ const UpdateArtist = () => {
                 const artistResponse = await axios.get(`http://localhost:3000/api/artist/${artistID}`);
                 setArtist(artistResponse.data);
             } catch (error) {
-                console.error('Error fetching concert details:', error);
+                console.error('Error fetching artist details:', error);
             }
         };
 
@@ -34,16 +35,35 @@ const UpdateArtist = () => {
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
+            setImageUploading(true);
             const storageRef = ref(concertImg, `artists/${file.name}`);
-            await uploadBytesResumable(storageRef, file);
-            const url = await getDownloadURL(storageRef);
-            setArtist({ ...artist, imgURL: url });
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                },
+                (error) => {
+                    console.error('Error uploading file:', error);
+                    setImageUploading(false);
+                },
+                async () => {
+                    const url = await getDownloadURL(uploadTask.snapshot.ref);
+                    setArtist((prevArtist) => ({ ...prevArtist, imgURL: url }));
+                    setImageUploading(false);
+                }
+            );
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(artist)
+        if (imageUploading) {
+            console.log("Image is still uploading, please wait...");
+            return;
+        }
+        console.log("Submitting artist data:", artist);
         try {
             await axios.put(`http://localhost:3000/api/artist/${_id}/${artistID}`, artist, {
                 headers: {
@@ -52,7 +72,7 @@ const UpdateArtist = () => {
             });
             navigate('/dbartists');
         } catch (error) {
-            console.error('Error updating concert:', error);
+            console.error('Error updating artist:', error);
         }
     };
 
@@ -96,7 +116,14 @@ const UpdateArtist = () => {
                                 onChange={handleFileChange} 
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-3">update artist</Button>
+                        <Button 
+                            variant="primary" 
+                            type="submit" 
+                            className="mt-3"
+                            disabled={imageUploading}
+                        >
+                            {imageUploading ? 'Uploading...' : 'Update Artist'}
+                        </Button>
                     </Form>
                 </Col>
             </Row>
