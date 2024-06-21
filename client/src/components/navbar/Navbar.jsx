@@ -74,7 +74,7 @@ function Navbar() {
                                 <div className="nav-item">
                                     <NavLink className="nav-link" to="/profile">{username}'s profile</NavLink>
                                 </div>
-                                {_id === adminID1 || _id === adminID2 && (
+                                {(_id === adminID1 || _id === adminID2) && (
                                     <div className="nav-item">
                                         <NavLink className="nav-link" to="/dbconcerts">dashboard</NavLink>
                                     </div>
