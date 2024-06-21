@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 import { Row, Col, Container, Card, Button } from 'react-bootstrap';
+import '../Concert/Concert.css';
 
 const Venue = () => {
     const [venues, setVenues] = useState([]);
@@ -36,9 +37,9 @@ const Venue = () => {
             <Row>
                 {venues.map(venue => (
                     <Col key={venue._id} sm={12} md={6} lg={4} xl={3} className="mb-4">
-                        <Card className="venue-card h-100">
+                        <Card className="concert-card h-100">
                             {/* Replace with actual venue image */}
-                            <Card.Img variant="top" src={venue.imageUrl} alt={venue.venueName} className="venue-image" />
+                            <Card.Img variant="top" src={venue.imgURL} alt={venue.venueName} className="venue-image" />
                             <Card.Body>
                                 <Card.Title>{venue.venueName}</Card.Title>
                                 <Card.Text>

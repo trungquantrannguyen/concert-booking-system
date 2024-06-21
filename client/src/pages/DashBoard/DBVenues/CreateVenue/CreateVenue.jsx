@@ -94,7 +94,8 @@ function CreateVenue() {
                 location: location,
                 capacity: parseInt(capacity),
                 seatClass: seatClass,
-                priceRange: priceRange
+                priceRange: priceRange,
+                imgURL: imageUrl
             }, {
                 headers: {
                     'Authorization': `${token}`
