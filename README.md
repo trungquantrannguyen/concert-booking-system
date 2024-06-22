@@ -1,2 +1,2 @@
-WAD Final Report: [Uploading _WAD_FINAL_REPORT.docx.pdf…]() <br>
-WAD Slides: [Uploading WAD.pdf…]()
+<a href="https://github.com/trungquantrannguyen/concert-booking-system/Resource/WAD_FINAL_REPORT.pdf">WAD Final Report</a> <br>
+<a href="https://github.com/trungquantrannguyen/concert-booking-system/Resource/WAD_SLIDES.pdf">WAD Slides</a> <br>
