@@ -11,6 +11,9 @@ const FeaturedEvents = () => {
     const [artists, setArtists] = useState([]);
     const [genres, setGenres] = useState([]);
     const { token } = useContext(StoreContext);
+    const linkStyle = {
+        textDecoration: 'none',
+    };
 
     useEffect(() => {
         const fetchConcertsAndGenres = async () => {
@@ -59,7 +62,7 @@ const FeaturedEvents = () => {
                         <Card className="featured-events-list-item h-100">
                             <Card.Img variant="top" src={concert.imgURL} className="feature-image" alt={concert.name} />
                             <Card.Body>
-                                <Link to={`/concerts/buy-ticket/${concert._id}`}>
+                                <Link to={`/concerts/buy-ticket/${concert._id}`} style={linkStyle}>
                                     <Card.Title className='feature-card-title'>{concert.name}</Card.Title>
                                 </Link>
                                 <Card.Text>{getArtistName(concert.artist)}</Card.Text>

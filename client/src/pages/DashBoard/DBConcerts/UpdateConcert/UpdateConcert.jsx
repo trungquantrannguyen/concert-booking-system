@@ -120,7 +120,7 @@ const UpdateConcert = () => {
                                 required 
                             />
                         </Form.Group>
-                        <Form.Group controlId="venue" className='update-form'>
+                        <Form.Group controlId="venue">
                             <Form.Label>Venue</Form.Label>
                             <Form.Control 
                                 as="select" 
@@ -135,7 +135,7 @@ const UpdateConcert = () => {
                                 ))}
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group controlId="imgURL">
+                        <Form.Group controlId="imgURL" className='update-form'>
                             <Form.Label>Image</Form.Label>
                             <Form.Control 
                                 type="file" 
