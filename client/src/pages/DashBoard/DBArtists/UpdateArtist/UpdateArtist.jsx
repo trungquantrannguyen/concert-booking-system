@@ -98,7 +98,7 @@ const UpdateArtist = () => {
                                 required 
                             />
                         </Form.Group>
-                        <Form.Group controlId="genre" className='update-form'>
+                        <Form.Group controlId="genre">
                             <Form.Label>Genre</Form.Label>
                             <Form.Control 
                                 type="text" 
@@ -108,7 +108,7 @@ const UpdateArtist = () => {
                                 required 
                             />
                         </Form.Group>
-                        <Form.Group controlId="imgURL">
+                        <Form.Group controlId="imgURL" className='update-form'>
                             <Form.Label>Image</Form.Label>
                             <Form.Control 
                                 type="file" 
